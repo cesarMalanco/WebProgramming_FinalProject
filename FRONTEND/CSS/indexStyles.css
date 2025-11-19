@@ -619,7 +619,7 @@ body {
 /* ======== NEWSLETTER ======== */
 .newsletter {
     padding: 80px 0;
-    background: var(--primary);
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white;
     text-align: center;
 }
