@@ -348,7 +348,7 @@ function handleLogout() {
         
         // Redireccionar (simulado)
         setTimeout(() => {
-            window.location.href = '/PAGES/login.html';
+            window.location.href = '/FRONTEND/PAGES/login.html';
         }, 1000);
     }
 }
