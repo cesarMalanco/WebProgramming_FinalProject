@@ -1,0 +1,1 @@
+// Verificacion de JWT para rutas protegidas (registro no)
