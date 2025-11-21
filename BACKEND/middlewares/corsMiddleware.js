@@ -4,7 +4,12 @@ const cors = require('cors');
 // ===== IPs AUTORIZADAS =====
 const ALLOWED_ORIGINS = [
   'http://localhost:5500',
-  'http://127.0.0.1:5500'
+  'http://127.0.0.1:5500',
+  'http://localhost:57812',
+  'http://127.0.0.1:57812',
+  'http://localhost:60716',
+  'http://127.0.0.1:60716',
+  
 ];
 
 // ===== CORS MIDDLEWARE =====
