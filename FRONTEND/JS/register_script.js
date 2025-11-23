@@ -27,8 +27,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.token) {
           localStorage.setItem("token", data.token);
         }
+        // Guardar el nombre del usuario
+        localStorage.setItem("userName", name);
         registerForm.reset();
-        /*TO DO: LLEVAR AL USUARIO A LA PÁGINA YA LOGGEADO*/
+        window.location.href = "/PAGES/home.html";
       } else {
         alert(data.message || "Error al registrar el usuario");
         // Si el usuario ya existe, limpiar email y contraseña

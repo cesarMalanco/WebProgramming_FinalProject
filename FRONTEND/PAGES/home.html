@@ -31,8 +31,9 @@
                     <span class="cart-count">0</span>
                 </a>
                 
-                <!-- BOTÓN LOGIN -->
-                <a href="login.html" class="login-btn">Iniciar sesión</a>
+                <!-- USUARIO LOGUEADO -->
+                <span id="user-name" class="welcome-user"></span>
+                <button id="logout-btn" class="login-btn">Cerrar sesión</button>
             </div>
         </div>
     </div>
@@ -40,6 +41,24 @@
     <!-- MAIN HEADER -->
     <header class="main-header">
         <div class="header-container">
+                <script>
+                // Verificar token JWT y nombre de usuario
+                let token = localStorage.getItem("token");
+                let name = localStorage.getItem("userName");
+                if (!token || !name) {
+                    // Si no hay token o nombre, redirigir a login
+                    window.location.href = "/PAGES/login.html";
+                } else {
+                    document.getElementById("user-name").textContent = `Bienvenido@, ${name}`;
+                }
+                // Logout
+                document.getElementById("logout-btn").addEventListener("click", function() {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("userName");
+                    localStorage.removeItem("currentUser");
+                    window.location.href = "/PAGES/login.html";
+                });
+                </script>
             <div class="logo">
                 <img src="/IMAGES/TiredCat_No-bg.png" alt="Logo Rythmo" />
                 <div class="logo-text">

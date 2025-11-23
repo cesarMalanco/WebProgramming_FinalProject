@@ -6,7 +6,7 @@ const User = {
     /**
      * Crea un nuevo usuario en la base de datos
      * 
-     * @param {Object} userData - Datos del usuario (name, email, password)
+     * @param {Object} userData - Datos del usuario (name, email, password, country)
      * @returns {Promise<number>} - Retorna el ID del usuario creado
      */
     async createUser(userData){

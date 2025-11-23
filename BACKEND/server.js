@@ -3,9 +3,9 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("./middlewares/corsMiddleware");
 const pool = require("./config/database"); 
-const authRoutes = require("./routes/authRoutes");
 
-const svgCaptcha = require("svg-captcha");
+const authRoutes = require("./routes/authRoutes");
+const captchaRoutes = require("./routes/captchaRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,48 +21,9 @@ app.get("/", (req, res) => {
 // ===== RUTAS DE AUTENTICACIÓN ===== 
 app.use("/api/auth", authRoutes);
 
-// ========== CAPTCHA ==================
+// ===== RUTAS DE CAPTCHA =====
+app.use("/api/captcha", captchaRoutes);
 
-// Almacén temporal de captchas (en memoria para pruebas)
-const captchaStore = new Map();
-
-// --- Generar CAPTCHA ---
-app.get("/api/captcha", (req, res) => {
-  const captcha = svgCaptcha.create({
-    size: 5,
-    noise: 2,
-    color: false,
-  });
-
-  // ID único (en un sistema real usarías un token temporal)
-  const captchaId = Date.now().toString();
-  captchaStore.set(captchaId, captcha.text.toLowerCase());
-
-  res.json({
-    id: captchaId,
-    image: captcha.data, // SVG en formato texto
-  });
-});
-
-// --- Validar CAPTCHA ---
-app.post("/api/captcha/validate", (req, res) => {
-  const { id, answer } = req.body;
-
-  if (!captchaStore.has(id)) {
-    return res.status(400).json({ success: false, message: "Captcha expirado" });
-  }
-
-  const expected = captchaStore.get(id);
-  captchaStore.delete(id); // Se elimina tras usarlo
-
-  if (answer.toLowerCase() === expected) {
-    return res.json({ success: true, message: "Captcha correcto" });
-  } else {
-    return res.status(400).json({ success: false, message: "Captcha incorrecto" });
-  }
-});
-
-//======================================
 
 // ===== FUNCIÓN DE PRUEBA MÍNIMA BD ===== 
 async function testConnection(){

@@ -1,1 +1,0 @@
-// Limitacion de perticiones
