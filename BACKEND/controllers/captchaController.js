@@ -4,7 +4,8 @@ const captchaService = require('../services/captchaService');
 // ===== FUNCIONES =====
 // Función para obtener captcha
 exports.getCaptcha = async (req, res) => {
-    const captcha = await captchaService.createCaptcha();
+    const { email } = req.body;
+    const captcha = await captchaService.createCaptcha(email);
     res.json(captcha);
 };
 

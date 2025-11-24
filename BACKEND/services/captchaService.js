@@ -4,7 +4,8 @@ const CaptchaSession = require('../models/CaptchaSession');
 
 // ===== SERVICIO DE CAPTCHA =====
 // Creación de captcha
-async function createCaptcha(){
+async function createCaptcha(email){
+    await CaptchaSession.cleanExpired();
     const captcha = svgCaptcha.create({
         size: 5,
         noise: 2,
@@ -12,12 +13,13 @@ async function createCaptcha(){
     });
 
     const captchaId = Date.now().toString();
-    CaptchaSession.create(captchaId, captcha.text.toLowerCase());
+    CaptchaSession.create(captchaId, captcha.text.toLowerCase(), email);
     return {id: captchaId, image: captcha.data};
 }
 
 // Validación de captcha (con BD)
 async function validateCaptcha(id, answer) {
+    await CaptchaSession.cleanExpired();
     const session = await CaptchaSession.findById(id);
     if (!session) return { success: false, message: 'Captcha expirado' };
     

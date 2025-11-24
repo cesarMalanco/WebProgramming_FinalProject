@@ -1,10 +1,17 @@
-// ===============================
-//         LOGIN + CAPTCHA
-// ===============================
+// ===== LOGIN + CAPTCHA =====
 let captchaId = "";
 
 async function loadCaptcha() {
-  const res = await fetch("http://localhost:3000/api/captcha");
+  let email = "";
+  const emailInput = document.getElementById("email");
+  if (emailInput) {
+    email = emailInput.value.trim();
+  }
+  const res = await fetch("http://localhost:3000/api/captcha", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
   const data = await res.json();
   captchaId = data.id;
   document.getElementById("captchaContainer").innerHTML = data.image;
@@ -55,19 +62,20 @@ document.getElementById("login-btn").addEventListener("click", async (e) => {
     return;
   }
 
-  // Guardar el token JWT
-  localStorage.setItem("token", data.token);
-
-  // Guardar usuario según "Recordarme"
+  // Guardar usuario y token según "Recordarme"
   const remember = document.getElementById("rememberMe").checked;
   if (remember) {
+    localStorage.setItem("token", data.token);
     localStorage.setItem("currentUser", email);
+    if (data.name) {
+      localStorage.setItem("userName", data.name);
+    }
   } else {
+    sessionStorage.setItem("token", data.token);
     sessionStorage.setItem("currentUser", email);
-  }
-  // Guardar el nombre del usuario para mostrar en home
-  if (data.name) {
-    localStorage.setItem("userName", data.name);
+    if (data.name) {
+      sessionStorage.setItem("userName", data.name);
+    }
   }
 
   Swal.fire({

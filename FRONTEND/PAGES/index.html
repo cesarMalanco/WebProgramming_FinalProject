@@ -30,9 +30,10 @@
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span class="cart-count">0</span>
                 </a>
-                
-                <!-- BOTÓN LOGIN -->
-                <a href="login.html" class="login-btn">Iniciar sesión</a>
+                <!-- USUARIO LOGUEADO O LOGIN -->
+                <span id="user-name" class="welcome-user" style="display:none"></span>
+                <button id="logout-btn" class="login-btn" style="display:none">Cerrar sesión</button>
+                <a href="login.html" class="login-btn" id="login-btn-link">Iniciar sesión</a>
             </div>
         </div>
     </div>
@@ -40,6 +41,52 @@
     <!-- MAIN HEADER -->
     <header class="main-header">
         <div class="header-container">
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                // Verificar token y nombre de usuario en ambos almacenamientos
+                let token = localStorage.getItem("token") || sessionStorage.getItem("token");
+                let name = localStorage.getItem("userName") || sessionStorage.getItem("userName");
+                let currentUser = localStorage.getItem("currentUser") || sessionStorage.getItem("currentUser");
+                if (token && name && currentUser) {
+                    document.getElementById("user-name").textContent = `Bienvenido@, ${name}`;
+                    document.getElementById("user-name").style.display = "inline-block";
+                    document.getElementById("logout-btn").style.display = "inline-block";
+                    document.getElementById("login-btn-link").style.display = "none";
+                } else {
+                    document.getElementById("user-name").style.display = "none";
+                    document.getElementById("logout-btn").style.display = "none";
+                    document.getElementById("login-btn-link").style.display = "inline-block";
+                }
+                // Logout
+                document.getElementById("logout-btn").addEventListener("click", function() {
+                    Swal.fire({
+                        title: "¿Estás seguro de que quieres cerrar sesión?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Sí, cerrar sesión",
+                        cancelButtonText: "Cancelar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            localStorage.removeItem("token");
+                            localStorage.removeItem("userName");
+                            localStorage.removeItem("currentUser");
+                            sessionStorage.removeItem("token");
+                            sessionStorage.removeItem("userName");
+                            sessionStorage.removeItem("currentUser");
+                            Swal.fire({
+                                icon: "success",
+                                title: "Sesión cerrada",
+                                text: "Has cerrado sesión correctamente.",
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                            setTimeout(function() {
+                                window.location.href = "/PAGES/index.html";
+                            }, 1500);
+                        }
+                    });
+                });
+            </script>
             <div class="logo">
                 <img src="/IMAGES/TiredCat_No-bg.png" alt="Logo Rythmo" />
                 <div class="logo-text">

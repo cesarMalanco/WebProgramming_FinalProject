@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Rythmo | Tienda de Música</title>
     <link rel="icon" type="image/png" href="/IMAGES/TiredCat_No-bg.png"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/d90850e71e.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/CSS/indexStyles.css">
@@ -42,21 +43,44 @@
     <header class="main-header">
         <div class="header-container">
                 <script>
-                // Verificar token JWT y nombre de usuario
-                let token = localStorage.getItem("token");
-                let name = localStorage.getItem("userName");
-                if (!token || !name) {
-                    // Si no hay token o nombre, redirigir a login
-                    window.location.href = "/PAGES/login.html";
+                // Verificar token y nombre de usuario en ambos almacenamientos
+                let token = localStorage.getItem("token") || sessionStorage.getItem("token");
+                let name = localStorage.getItem("userName") || sessionStorage.getItem("userName");
+                let currentUser = localStorage.getItem("currentUser") || sessionStorage.getItem("currentUser");
+                if (!token || !name || !currentUser) {
+                    // Si no hay datos, redirigir a login
+                    window.location.href = "/PAGES/index.html";
                 } else {
                     document.getElementById("user-name").textContent = `Bienvenido@, ${name}`;
                 }
                 // Logout
                 document.getElementById("logout-btn").addEventListener("click", function() {
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("userName");
-                    localStorage.removeItem("currentUser");
-                    window.location.href = "/PAGES/login.html";
+                    Swal.fire({
+                        title: "¿Estás seguro de que quieres cerrar sesión?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Sí, cerrar sesión",
+                        cancelButtonText: "Cancelar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            localStorage.removeItem("token");
+                            localStorage.removeItem("userName");
+                            localStorage.removeItem("currentUser");
+                            sessionStorage.removeItem("token");
+                            sessionStorage.removeItem("userName");
+                            sessionStorage.removeItem("currentUser");
+                            Swal.fire({
+                                icon: "success",
+                                title: "Sesión cerrada",
+                                text: "Has cerrado sesión correctamente.",
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                            setTimeout(function() {
+                                window.location.href = "/PAGES/index.html";
+                            }, 1500);
+                        }
+                    });
                 });
                 </script>
             <div class="logo">

@@ -1,3 +1,4 @@
+// ===== REGISTRO DE USUARIO =====
 document.addEventListener("DOMContentLoaded", function () {
   const registerForm = document.querySelector(".register-form form");
   if (!registerForm) return;
@@ -23,14 +24,22 @@ document.addEventListener("DOMContentLoaded", function () {
       const data = await response.json();
 
       if (response.ok) {
-        alert("¡Registro exitoso!");
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-        }
-        // Guardar el nombre del usuario
-        localStorage.setItem("userName", name);
-        registerForm.reset();
-        window.location.href = "/PAGES/home.html";
+        Swal.fire({
+          icon: "success",
+          title: "¡Registro exitoso!",
+          text: "Tu cuenta ha sido creada correctamente.",
+          confirmButtonText: "Continuar",
+        }).then(() => {
+          if (data.token) {
+            localStorage.setItem("token", data.token);
+          }
+          // Guardar el nombre del usuario
+          localStorage.setItem("userName", name);
+          // Guardar el usuario actual
+          localStorage.setItem("currentUser", name);
+          registerForm.reset();
+          window.location.href = "/PAGES/home.html";
+        });
       } else {
         alert(data.message || "Error al registrar el usuario");
         // Si el usuario ya existe, limpiar email y contraseña
