@@ -77,5 +77,13 @@ const User = {
     }
 };
 
+async function getAllUsers() {
+    const [rows] = await pool.query('SELECT * FROM users');
+    return rows;
+}
+
 // ===== EXPORTACIÓN DEL MODELO =====
-module.exports = User;
+module.exports = {
+    User,
+    getAllUsers
+};
