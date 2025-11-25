@@ -138,52 +138,54 @@
                     <form id="add-product-form" class="crud-form">
                         <div class="form-row">
                             <label for="product-name">Nombre</label>
-                            <input type="text" id="product-name" name="name" placeholder="Nombre del producto" required>
+                            <input type="text" id="product-name" name="nombre" placeholder="Nombre del producto" required>
                         </div>
 
                         <div class="form-row">
                             <label for="product-price">Precio</label>
-                            <input type="number" id="product-price" name="price" step="0.01" placeholder="0.00" required>
+                            <input type="number" id="product-price" name="precio" step="0.01" placeholder="0.00" required>
                         </div>
 
                         <div class="form-row">
                             <label for="product-description">Descripción</label>
-                            <textarea id="product-description" name="description" placeholder="Descripción del producto"></textarea>
+                            <textarea id="product-description" name="descripcion" placeholder="Descripción del producto"></textarea>
                         </div>
 
                         <div class="form-row">
                             <label for="product-category">Categoría</label>
-                            <select id="product-category" name="category" required>
+                            <select id="product-category" name="categoria" required>
                                 <option value="">Selecciona una categoría</option>
-                                <option value="electronics">Discos</option>
-                                <option value="clothing">Albumes</option>
-                                <option value="home">Instrumentos</option>
+                                <option value="Discos">Discos</option>
+                                <option value="Albumes">Álbumes</option>
+                                <option value="Instrumentos">Instrumentos</option>
                             </select>
                         </div>
 
                         <div class="form-row">
                             <label for="product-stock">Stock</label>
-                            <input type="number" id="product-stock" name="stock" placeholder="0" required>
+                            <input type="number" id="product-stock" name="stock" placeholder="0" value="0" required>
                         </div>
 
                         <div class="form-row">
                             <label for="product-image">Imagen del Producto</label>
-
-                            <!-- Input real (oculto) -->
-                            <input type="file" id="product-image" name="image" accept="image/*" class="hidden-input">
-
-
+                            
+                            <!-- Input real (oculto) - SIN atributo name -->
+                            <input type="file" id="product-image" accept="image/*" class="hidden-input">
+                            
                             <div class="image-upload-box" id="image-upload-box">
                                 <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
                                 <p>Haz clic para subir una imagen</p>
-                                <img id="image-preview" class="image-preview hidden">
+                                <img id="image-preview" class="image-preview hidden" alt="Vista previa">
                             </div>
                         </div>
 
-
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Guardar Producto</button>
-                            <button type="reset" class="btn btn-secondary">Limpiar</button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa-solid fa-save"></i> Guardar Producto
+                            </button>
+                            <button type="reset" class="btn btn-secondary">
+                                <i class="fa-solid fa-eraser"></i> Limpiar
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -218,9 +220,8 @@
             <section id="clientes-section" class="page-section">
                 <div class="crud-container">
                     <h2>Gestión de Clientes</h2>
-                    <div class="data-placeholder">
-                        <i class="fa-solid fa-users"></i>
-                        <p>Módulo de clientes (por decidir)</p>
+                    <div id="clients-list" class="clients-table-container">
+                        <div class="loading">Cargando clientes...</div>
                     </div>
                 </div>
             </section>
