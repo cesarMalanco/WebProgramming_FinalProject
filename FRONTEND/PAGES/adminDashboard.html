@@ -6,7 +6,7 @@
     <title>Rythmo | Panel de Administración</title>
     <link rel="icon" type="image/png" href="/IMAGES/TiredCat_No-bg.png">
     <script src="https://kit.fontawesome.com/d90850e71e.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/CSS/adminStyles.css">
+    <link rel="stylesheet" href="/CSS/adminStyles2.css">
 </head>
 <body>
     <!-- ========== SIDEBAR IZQUIERDA ========== -->
@@ -50,6 +50,27 @@
         </div>
 
         <div class="bottom-section">
+             <!-- ICONO ACCESIBILIDAD -->
+                <div id="accessibility-icon" class="menu-item" title="Buscar">
+                    <i class="fa-solid fa-paintbrush"></i>
+                    <span class="menu-text">Cambiar Tema</span>
+                </div>
+                <!-- PANEL ACCESIBILIDAD -->
+                <div id="accessibility-panel" class="hidden">
+                    <p><strong>Accesibilidad</strong></p>
+                
+                    <button id="increase-text">A+</button>
+                    <button id="decrease-text">A-</button>
+                    <br><br>
+                
+                    <button id="light-mode-btn" title="Modo claro"><i class="fa-solid fa-sun"></i></button>
+
+                    <button id="dark-mode-btn" title="Modo oscuro"><i class="fa-solid fa-moon"></i></button>
+                    <br><br>
+                
+                    <button id="reset-accessibility">Restablecer</button>
+                </div>
+
             <div class="menu-item" data-page="logout">
                 <i class="fa-solid fa-door-open menu-icon"></i>
                 <span class="menu-text">Cerrar Sesión</span>
@@ -238,6 +259,7 @@
         </div>
     </main>
 
+    <script src="/JS/acces_script.js"></script>
     <script src="/JS/admin_script.js"></script>
 </body>
 </html>
