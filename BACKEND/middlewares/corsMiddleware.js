@@ -9,6 +9,8 @@ const ALLOWED_ORIGINS = [
   'http://127.0.0.1:57812',
   'http://localhost:60716',
   'http://127.0.0.1:60716',
+  'http://localhost:54686',
+  'http://127.0.0.1:54686',
   
 ];
 

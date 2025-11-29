@@ -98,11 +98,27 @@
             <!-- NAV BAR -->
             <nav class="navbar">
                 <a class="nav-link active" href="/PAGES/index.html">Inicio</a>
-                <a class="nav-link" href="#">Catálogo</a>
-                <a class="nav-link" href="#">Nosotros</a>
+                <a class="nav-link" href="/PAGES/catalogo.html">Catálogo</a>
+                <a class="nav-link" href="#about">Nosotros</a>
                 <a class="nav-link" href="/PAGES/contact.html">Contacto</a>
-                <a class="nav-link" href="#">FAQ</a>
-                <a href="#" class="nav-link search" title="Buscar"><i class="fa-solid fa-magnifying-glass"></i></a>
+                <a class="nav-link" href="/PAGES/faq.html">FAQ</a>
+                <!-- ICONO ACCESIBILIDAD -->
+                <div id="accessibility-icon" class="nav-link search" title="Buscar"><i class="fa-solid fa-paintbrush"></i></div>
+                <!-- PANEL ACCESIBILIDAD -->
+                <div id="accessibility-panel" class="hidden">
+                    <p><strong>Accesibilidad</strong></p>
+                
+                    <button id="increase-text">A+</button>
+                    <button id="decrease-text">A-</button>
+                    <br><br>
+                
+                    <button id="light-mode-btn" title="Modo claro"><i class="fa-solid fa-sun"></i></button>
+
+                    <button id="dark-mode-btn" title="Modo oscuro"><i class="fa-solid fa-moon"></i></button>
+                    <br><br>
+                
+                    <button id="reset-accessibility">Restablecer</button>
+                </div>
             </nav>
         </div>
     </header>
@@ -194,13 +210,13 @@
             </div>
             
             <div class="section-cta">
-                <a href="#" class="btn btn-outline">Ver todos los productos</a>
+                <a href="/PAGES/catalogo.html" class="btn btn-outline">Ver todos los productos</a>
             </div>
         </div>
     </section>
 
     <!-- ABOUT SECTION -->
-    <section class="about-section">
+    <section id="about" class="about-section">
         <div class="container">
             <div class="about-content">
                 <h2 class="section-title">Nuestra Historia</h2>
@@ -220,7 +236,7 @@
                         <span>Envío rápido</span>
                     </div>
                 </div>
-                <a href="#" class="btn">Conoce más</a>
+                <a href="/PAGES/nosotros.html" class="btn">Conoce más</a>
             </div>
             <div class="about-image">
                 <i class="fa-solid fa-music"></i>
@@ -291,5 +307,6 @@
         </div>
     </footer>
 
+    <script src="/JS/acces_script.js"></script>
 </body>
 </html>

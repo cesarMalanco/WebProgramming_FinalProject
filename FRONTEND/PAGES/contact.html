@@ -99,11 +99,27 @@
             <!-- NAV BAR -->
             <nav class="navbar">
                 <a class="nav-link" href="/PAGES/index.html">Inicio</a>
-                <a class="nav-link" href="#">Catálogo</a>
-                <a class="nav-link" href="#">Nosotros</a>
+                <a class="nav-link" href="/PAGES/catalogo.html">Catálogo</a>
+                <a class="nav-link" href="/PAGES/nosotros.html">Nosotros</a>
                 <a class="nav-link active" href="/PAGES/contact.html">Contacto</a>
-                <a class="nav-link" href="#">FAQ</a>
-                <a href="#" class="nav-link search" title="Buscar"><i class="fa-solid fa-magnifying-glass"></i></a>
+                <a class="nav-link" href="/PAGES/faq.html">FAQ</a>
+                <!-- ICONO ACCESIBILIDAD -->
+                <div id="accessibility-icon" class="nav-link search" title="Buscar"><i class="fa-solid fa-paintbrush"></i></div>
+                <!-- PANEL ACCESIBILIDAD -->
+                <div id="accessibility-panel" class="hidden">
+                    <p><strong>Accesibilidad</strong></p>
+                
+                    <button id="increase-text">A+</button>
+                    <button id="decrease-text">A-</button>
+                    <br><br>
+                
+                    <button id="light-mode-btn" title="Modo claro"><i class="fa-solid fa-sun"></i></button>
+
+                    <button id="dark-mode-btn" title="Modo oscuro"><i class="fa-solid fa-moon"></i></button>
+                    <br><br>
+                
+                    <button id="reset-accessibility">Restablecer</button>
+                </div>
             </nav>
         </div>
     </header>
@@ -223,5 +239,7 @@
             </div>
         </div>
     </footer>
+
+    <script src="/JS/acces_script.js"></script>
 </body>
 </html>
