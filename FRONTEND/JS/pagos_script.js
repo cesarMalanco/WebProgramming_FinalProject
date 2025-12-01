@@ -216,3 +216,43 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar logo de tarjeta
     updateCardLogo('');
 });
+
+
+
+// =============================== PARA EL PAGO CON OXXO =============================== //
+// Tiempo total: 72 horas = 259200000 ms
+const TOTAL_TIME = 72 * 60 * 60 * 1000;
+
+// Verificar si existe una fecha de expiración guardada
+let expireTime = localStorage.getItem("oxxoExpire");
+
+// si no existe crear una
+if (!expireTime) {
+    expireTime = Date.now() + TOTAL_TIME;
+    localStorage.setItem("oxxoExpire", expireTime);
+} else {
+    expireTime = parseInt(expireTime);
+}
+
+function updateTimer() {
+    const now = Date.now();
+    const remaining = expireTime - now;
+
+    if (remaining <= 0) {
+        document.getElementById("timer").textContent = "00:00:00";
+        localStorage.removeItem("oxxoExpire"); // limpiar el temporizador
+        return;
+    }
+
+    const hours = Math.floor((remaining / (1000 * 60 * 60))).toString().padStart(2, "0");
+    const minutes = Math.floor((remaining / (1000 * 60) % 60)).toString().padStart(2, "0");
+    const seconds = Math.floor((remaining / 1000) % 60).toString().padStart(2, "0");
+
+    document.getElementById("timer").textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+// Actualizar cada segundo
+setInterval(updateTimer, 1000);
+updateTimer();
+
+

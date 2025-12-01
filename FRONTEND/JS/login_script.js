@@ -33,7 +33,21 @@ document.getElementById("login-btn").addEventListener("click", async (e) => {
       text: "Ingresa correo y contraseña",
     });
     return;
+
   }
+
+
+  const passwordConfirm = document.getElementById("passwordConfirm").value.trim();
+
+  if (password !== passwordConfirm) {
+      Swal.fire({
+          icon: "error",
+          title: "Contraseñas no coinciden",
+          text: "Asegúrate de escribir la misma contraseña en ambos campos",
+      });
+      return;
+  }
+
 
   // Petición login+captcha
   const res = await fetch("http://localhost:3000/api/auth/login", {
