@@ -1,15 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Rythmo | Tienda de Música</title>
+    <title>Rythmo | Métodos de Pago</title>
     <link rel="icon" type="image/png" href="/IMAGES/TiredCat_No-bg.png"/>
     <script src="https://kit.fontawesome.com/d90850e71e.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/CSS/indexStyles.css">
+    <link rel="stylesheet" href="/CSS/generalPayStyles.css"/>
 </head>
-
 <body>
     <!-- TOP BAR -->
     <div class="top-bar">
@@ -28,7 +27,7 @@
                 <!-- CARRITO CON BADGE -->
                 <a href="/PAGES/cart.html" class="header-icon cart" title="Carrito de compras">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="cart-count" id="cart-badge">0</span>
+                    <span class="cart-count">0</span>
                 </a>
                 <!-- USUARIO LOGUEADO O LOGIN -->
                 <span id="user-name" class="welcome-user" style="display:none"></span>
@@ -97,166 +96,114 @@
 
             <!-- NAV BAR -->
             <nav class="navbar">
-                <a class="nav-link active" href="/PAGES/index.html">Inicio</a>
+                <a class="nav-link" href="/PAGES/index.html">Inicio</a>
                 <a class="nav-link" href="/PAGES/catalogo.html">Catálogo</a>
                 <a class="nav-link" href="#about">Nosotros</a>
                 <a class="nav-link" href="/PAGES/contact.html">Contacto</a>
                 <a class="nav-link" href="/PAGES/faq.html">FAQ</a>
                 <!-- ICONO ACCESIBILIDAD -->
-                <div id="accessibility-icon" class="nav-link search"><i class="fa-solid fa-paintbrush"></i></div>
+                <div id="accessibility-icon" class="nav-link search" title="Buscar"><i class="fa-solid fa-paintbrush"></i></div>
                 <!-- PANEL ACCESIBILIDAD -->
                 <div id="accessibility-panel" class="hidden">
                     <p><strong>Accesibilidad</strong></p>
-                
                     <button id="increase-text">A+</button>
                     <button id="decrease-text">A-</button>
                     <br><br>
-                
                     <button id="light-mode-btn" title="Modo claro"><i class="fa-solid fa-sun"></i></button>
-
                     <button id="dark-mode-btn" title="Modo oscuro"><i class="fa-solid fa-moon"></i></button>
                     <br><br>
-                
                     <button id="reset-accessibility">Restablecer</button>
                 </div>
             </nav>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h2>Descubre el sonido</h2>
-                <p>Discos, albumes e instrumentos con alma y carácter. Revive la auténtica experiencia musical.</p>
-                <a class="btn hero-btn" href="#">Explorar catálogo</a>
+    <!-- CONTENIDO PRINCIPAL DE PAGO -->
+    <div class="checkout-container">
+        <div class="payment-content">
+            <!-- MIGAS DE PAN -->
+            <div class="breadcrumb">
+                <a href="/PAGES/index.html">Inicio</a>
+                <span class="separator">></span>
+                <a href="/PAGES/cart.html">Carrito</a>
+                <span class="separator">></span>
+                <span class="current">Método de Pago</span>
+            </div>
+
+            <!-- MÉTODOS DE PAGO -->
+            <div class="payment-methods">
+                <h2><i class="fa-solid fa-credit-card"></i> Selecciona tu método de pago</h2>
+                <p class="payment-subtitle">Elige la forma que más te convenga para completar tu compra</p>
+
+                <div class="payment-options">
+                    <!-- TARJETA -->
+                    <div class="payment-option" onclick="selectPayment('card')">
+                        <div class="payment-icon">
+                            <i class="fa-solid fa-credit-card"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h3>Tarjeta de Crédito/Débito</h3>
+                            <p>Paga de forma segura con tu tarjeta</p>
+                            <div class="payment-badges">
+                                <span class="badge">Visa</span>
+                                <span class="badge">Mastercard</span>
+                                <span class="badge">Amex</span>
+                            </div>
+                        </div>
+                        <div class="payment-arrow">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- OXXO -->
+                    <div class="payment-option" onclick="selectPayment('oxxo')">
+                        <div class="payment-icon">
+                            <i class="fa-solid fa-store"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h3>Pago en OXXO</h3>
+                            <p>Paga en efectivo en cualquier tienda OXXO</p>
+                            <div class="payment-features">
+                                <span class="feature"><i class="fa-solid fa-clock"></i> Válido por 72 horas</span>
+                                <span class="feature"><i class="fa-solid fa-receipt"></i> Recibo impreso</span>
+                            </div>
+                        </div>
+                        <div class="payment-arrow">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- TRANSFERENCIA -->
+                    <div class="payment-option" onclick="selectPayment('transfer')">
+                        <div class="payment-icon">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h3>Transferencia Bancaria</h3>
+                            <p>Transfiere desde tu banca en línea</p>
+                            <div class="payment-badges">
+                                <span class="badge">BBVA</span>
+                                <span class="badge">Santander</span>
+                                <span class="badge">Banamex</span>
+                            </div>
+                        </div>
+                        <div class="payment-arrow">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOTÓN DE CONFIRMACIÓN -->
+                <div class="payment-confirm">
+
+                    <p class="security-note">
+                        <i class="fa-solid fa-shield-alt"></i>
+                        Tus datos están protegidos 
+                    </p>
+                </div>
             </div>
         </div>
-    </section>
-
-    <!-- FEATURED PRODUCTS -->
-    <section class="featured-products">
-        <div class="container">
-            <h2 class="section-title">Productos Destacados</h2>
-            <div class="products-grid">
-                <!-- Producto 1 -->
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="product-badge">Nuevo</div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Guitarra Acústica</h3>
-                        <p class="product-description">Sonido cálido y auténtico</p>
-                        <div class="product-price">$450</div>
-                        <div class="product-actions">
-                            <button class="add-to-cart"><i class="fa-solid fa-cart-plus"></i> Añadir</button>
-                            <button class="add-to-wishlist"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Producto 2 -->
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="product-badge">Oferta</div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Vinilo - The Beatles</h3>
-                        <p class="product-description">Edición especial Abbey Road, 1969.</p>
-                        <div class="product-price">
-                            <span class="current-price">$75</span>
-                            <span class="original-price">$90</span>
-                        </div>
-                        <div class="product-actions">
-                            <button class="add-to-cart"><i class="fa-solid fa-cart-plus"></i> Añadir</button>
-                            <button class="add-to-wishlist"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Producto 3 -->
-                <div class="product-card">
-                    <div class="product-image">
-                        
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Map of the Soul: 7 -The Journey-</h3>
-                        <p class="product-description">BTS</p>
-                        <div class="product-price">$620</div>
-                        <div class="product-badge">Importado</div>
-                        <div class="product-actions">
-                            <button class="add-to-cart"><i class="fa-solid fa-cart-plus"></i> Añadir</button>
-                            <button class="add-to-wishlist"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Producto 4 -->
-                <div class="product-card">
-                    <div class="product-image">
-                        
-                        <div class="product-badge">Popular</div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Batería Jazz</h3>
-                        <p class="product-description">Set completo con sonido suave y profundo.</p>
-                        <div class="product-price">$890</div>
-                        <div class="product-actions">
-                            <button class="add-to-cart"><i class="fa-solid fa-cart-plus"></i> Añadir</button>
-                            <button class="add-to-wishlist"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="section-cta">
-                <a href="/PAGES/catalogo.html" class="btn btn-outline">Ver todos los productos</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="about-content">
-                <h2 class="section-title">Nuestra Historia</h2>
-                <p>Desde 1975, Rythmo ha sido el destino para los amantes de la música auténtica. Nos especializamos en instrumentos y mercancía  original, cada uno con su propia historia que contar.</p>
-                <p>Nuestra pasión por el sonido cálido y la calidad nos impulsa a buscar las piezas más especiales para los oídos más exigentes.</p>
-                <div class="about-features">
-                    <div class="feature">
-                        <i class="fa-solid fa-medal"></i>
-                        <span>Calidad garantizada</span>
-                    </div>
-                    <div class="feature">
-                        <i class="fa-solid fa-tools"></i>
-                        <span>Garantía en reparación</span>
-                    </div>
-                    <div class="feature">
-                        <i class="fa-solid fa-shipping-fast"></i>
-                        <span>Envío rápido</span>
-                    </div>
-                </div>
-                <a href="/PAGES/nosotros.html" class="btn">Conoce más</a>
-            </div>
-            <div class="about-image">
-                <i class="fa-solid fa-music"></i>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEWSLETTER -->
-    <section class="newsletter">
-        <div class="container">
-            <div class="newsletter-content">
-                <h2>Únete a nuestra comunidad</h2>
-                <p>Recibe noticias sobre nuevos productos, eventos exclusivos y ofertas especiales.</p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Tu correo electrónico" required>
-                    <button type="submit">Suscribirse <i class="fa-solid fa-paper-plane"></i></button>
-                </form>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <!-- FOOTER -->
     <footer class="site-footer">
@@ -277,10 +224,10 @@
                 <div class="footer-section">
                     <h4>Enlaces rápidos</h4>
                     <ul>
-                        <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Catálogo</a></li>
-                        <li><a href="#">Nosotros</a></li>
-                        <li><a href="#">Contacto</a></li>
+                        <li><a href="/PAGES/index.html">Inicio</a></li>
+                        <li><a href="/PAGES/catalogo.html">Catálogo</a></li>
+                        <li><a href="#about">Nosotros</a></li>
+                        <li><a href="/PAGES/contact.html">Contacto</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -306,6 +253,49 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        let selectedPayment = null;
+
+        function selectPayment(method) {
+            // Remover selección anterior
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Agregar selección actual
+            const selectedOption = event.currentTarget;
+            selectedOption.classList.add('selected');
+            selectedPayment = method;
+
+            // Redirigir según el método seleccionado
+            setTimeout(() => {
+                switch(method) {
+                    case 'card':
+                        window.location.href = '/PAGES/paymentCard.html';
+                        break;
+                    case 'oxxo':
+                        window.location.href = '/PAGES/paymentOXXO.html';
+                        break;
+                    case 'transfer':
+                        window.location.href = '/PAGES/transfer.html ';
+                        break;
+                }
+            }, 500);
+        }
+
+        // Efecto hover 
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            option.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('selected')) {
+                    this.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
 
     <script src="/JS/acces_script.js"></script>
 </body>

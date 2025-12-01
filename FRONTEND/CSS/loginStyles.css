@@ -424,7 +424,7 @@
         font-family: 'Playfair Display', serif;
         font-size: 2.8rem;
         color: var(--primary);
-        margin-bottom: 12px;
+        margin-bottom: 10px;
         text-align: center;
         letter-spacing: 1px;
         transition: var(--transition);
@@ -433,7 +433,7 @@
     .login-subtitle {
         color: var(--text-muted);
         text-align: center;
-        margin-bottom: 50px;
+        margin-bottom: 30px;
         font-size: 1.05rem;
         line-height: 1.5;
         transition: var(--transition);
@@ -452,7 +452,6 @@
         display: flex;
         align-items: center;
         border-bottom: 2px solid var(--accent-soft);
-        padding-bottom: 12px;
         gap: 15px;
         transition: var(--transition);
         position: relative;
@@ -634,7 +633,7 @@
         left: 100%;
     }
 
-    /* MEJORAS PARA EL FORMULARIO DE REGISTRO */
+    /* FORMULARIO DE REGISTRO */
     .register-form .login-title {
         font-size: 2.6rem;
     }
