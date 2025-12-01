@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rythmo | Pago en OXXO</title>
+    <link rel="icon" type="image/png" href="/IMAGES/TiredCat_No-bg.png"/>
+    <link rel="stylesheet" href="/CSS/paymentOXXO.css">
+
+
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main class="oxxo-container">
+
+        <h2 class="title">
+            Por favor <span class="highlight">escanea este código de barras</span> en cualquier tienda OXXO para completar tu pago dentro de 
+            <span id="timer" class="timer">72:00:00</span>
+        </h2>
+
+        <div class="order-info">
+            <span>Total del pedido: <strong id="order-total">MX$0.00</strong></span>
+        </div>
+
+        <!-- Cuadro blanco -->
+        <div class="barcode-box">
+            <svg id="barcode"></svg>
+            <p id="barcode-number">2510042748740009</p>
+        </div>
+
+        <p class="refresh-text">Tu recibo será enviado a tu correo electrónico</p>
+
+        <div class="info-box">
+            <p>
+                <strong>Si no has pagado</strong> en una tienda OXXO, cambia tu método de pago para usar 
+                <strong>tarjeta de crédito/débito</strong> o <strong>transferencia bancaria</strong>.
+            </p>
+        </div>
+        <i class="fa-solid fa-arrow-left"></i>
+        <a href="/PAGES/generalPayment.html" class="btn-change">Cambiar método de pago</a>
+
+    </main>
+
+    <!-- Aquí incluyes tu FOOTER -->
+    <div id="footer"></div>
+
+    <script src="/JS/pagos_script.js"></script>
+</body>
+</html>
