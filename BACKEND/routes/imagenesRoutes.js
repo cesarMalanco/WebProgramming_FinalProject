@@ -1,11 +1,15 @@
+// ===== DEPENDENCIAS Y CONFIGURACIÓN =====
 const express = require("express");
 const router = express.Router();
 const imagenesController = require("../controllers/imagenesController");
+const { isAdmin } = require("../middlewares/authMiddleware");
 
-// Ruta para subir imágenes
-router.post("/upload", imagenesController.uploadImages);
+// ===== RUTAS =====
+// Ruta para subir imágenes (solo admin)
+router.post("/upload", isAdmin, imagenesController.uploadImages);
 
-// Ruta para eliminar imágenes
-router.post("/delete", imagenesController.deleteImages);
+// Ruta para eliminar imágenes (solo admin)
+router.post("/delete", isAdmin, imagenesController.deleteImages);
 
+// ===== EXPORTACIÓN DE RUTAS =====
 module.exports = router;
