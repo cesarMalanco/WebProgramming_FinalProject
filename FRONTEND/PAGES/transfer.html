@@ -107,15 +107,15 @@
                     <div class="summary-grid">
                         <div class="summary-item">
                             <span>Monto a transferir:</span>
-                            <strong class="amount">$0.00 MXN</strong>
+                            <strong class="amount" id="transfer-amount">$0.00 MXN</strong>
                         </div>
                         <div class="summary-item">
                             <span>Monto mínimo:</span>
-                            <span>$100.00 MXN</span>
+                            <span id="min-amount">$100.00 MXN</span>
                         </div>
                         <div class="summary-item">
                             <span>Comisión:</span>
-                            <span class="free">$0.00 MXN</span>
+                            <span class="free" id="commission">$0.00 MXN</span>
                         </div>
                         <div class="summary-item highlight">
                             <span>Vigencia:</span>
@@ -149,8 +149,51 @@
 
     </div>
 
+    <script src="/JS/currencyUtils.js"></script>
+    <script src="/JS/pagos_script.js"></script>
     <script>
     // =============================== PARA PAGO POR TRANSFERENCIA =============================== //
+    
+    let transferReference = '';
+    
+    // Función para mostrar el resumen del pedido
+    async function displayTransferSummary() {
+        // Usar la función global de pagos_script.js que ya maneja currencies
+        if (typeof displayOrderSummary === "function") {
+            await displayOrderSummary();
+        }
+        
+        // Verificar si hay datos de checkout
+        const checkoutData = JSON.parse(localStorage.getItem('checkoutData') || '{}');
+        if (!checkoutData.total) {
+            Swal.fire({
+                title: 'Error',
+                text: 'No hay información del pedido. Por favor regresa al carrito.',
+                icon: 'error',
+                confirmButtonColor: '#8B5E3C'
+            }).then(() => {
+                window.location.href = '/PAGES/cart.html';
+            });
+        }
+    }
+    
+    // Mostrar el total del pedido
+    document.addEventListener('DOMContentLoaded', function() {
+        displayTransferSummary();
+        
+        // Generar referencia única
+        const referenceElement = document.getElementById('reference');
+        if (referenceElement) {
+            transferReference = `TR-${Date.now().toString().slice(-8)}`;
+            referenceElement.textContent = transferReference;
+            
+            // Actualizar el botón de copiar referencia
+            const copyBtn = referenceElement.closest('.info-value')?.querySelector('.copy-btn');
+            if (copyBtn) {
+                copyBtn.setAttribute('onclick', `copyText('${transferReference}')`);
+            }
+        }
+    });
     
     // Función para copiar texto al portapapeles
     function copyText(text) {
@@ -200,56 +243,58 @@
         }, 3000);
     }
 
-    // Función para simular validación de pago
-    function validatePayment() {
-        
+    // Función para validar el pago por transferencia
+    async function validatePayment() {
         const confirmBtn = document.getElementById('confirm-transfer-btn');
         const btnText = confirmBtn.querySelector('.btn-text');
         const spinner = confirmBtn.querySelector('.loading-spinner');
         
         // Deshabilitar botón y mostrar spinner
         confirmBtn.disabled = true;
-        btnText.textContent = 'Validando pago...';
+        btnText.textContent = 'Procesando...';
         spinner.style.display = 'inline-block';
         confirmBtn.classList.add('validating');
         
-        console.log('Botón deshabilitado, spinner activado');
-        
-        // Simular progreso de validación
-        let progress = 0;
-        const progressInterval = setInterval(() => {
-            progress += 20;
-            if (progress <= 100) {
-                btnText.textContent = `Validando pago... ${progress}%`;
+        try {
+            // Procesar el pedido con transferencia
+            const result = await processTransferOrder(transferReference);
+            
+            if (result.success) {
+                Swal.fire({
+                    title: '¡Pedido Registrado!',
+                    html: `
+                        <p>Tu pedido ha sido registrado exitosamente.</p>
+                        <p><strong>Número de pedido:</strong> ${result.orderNumber}</p>
+                        <p>Por favor realiza la transferencia con la referencia indicada.</p>
+                        <p>Tu pedido será procesado una vez que confirmemos el pago.</p>
+                        <p class="mt-2" style="color: #666; font-size: 0.9em;">
+                            <i class="fa-solid fa-envelope"></i> Se ha enviado un correo con los detalles.
+                        </p>
+                    `,
+                    icon: 'success',
+                    confirmButtonText: 'Continuar',
+                    confirmButtonColor: '#8B5E3C',
+                    background: '#F8F3EB',
+                    color: '#2B1E14'
+                }).then(() => {
+                    // Limpiar datos de checkout
+                    localStorage.removeItem('checkoutData');
+                    window.location.href = '/PAGES/index.html';
+                });
+            } else {
+                throw new Error(result.error || 'Error al procesar el pedido');
             }
-        }, 1000);
-        
-        // 5 segundos para la validación (simulado)
-        setTimeout(() => {
-            clearInterval(progressInterval);
+        } catch (error) {
+            console.error('Error:', error);
             
             Swal.fire({
-                title: '¡Pago Recibido!',
-                text: 'Hemos recibido y validado tu transferencia bancaria exitosamente.',
-                icon: 'success',
-                confirmButtonText: 'Continuar',
-                confirmButtonColor: '#8B5E3C',
-                background: '#F8F3EB',
-                color: '#2B1E14',
-                customClass: {
-                    popup: 'custom-swal-popup'
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Redirigir a la de inicio
-                    window.location.href = '/PAGES/cart.html';
-                }
+                title: 'Error',
+                text: error.message || 'Hubo un problema al procesar tu pedido',
+                icon: 'error',
+                confirmButtonColor: '#8B5E3C'
             });
             
-        }, 5000); 
-        
-        // Función para restaurar el botón
-        function restoreButton() {
+            // Restaurar botón
             confirmBtn.disabled = false;
             btnText.textContent = 'Ya realicé la transferencia';
             spinner.style.display = 'none';

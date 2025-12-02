@@ -402,6 +402,7 @@ body {
     padding: 8px 12px;
     border-radius: 50%;
     transition: var(--transition);
+    cursor: pointer;
 }
 
 .nav-link.search:hover {
@@ -545,6 +546,7 @@ body {
     transition: var(--transition);
     padding: 8px;
     border-radius: 50%;
+    overflow: visible;
 }
 
 .header-icon:hover {
@@ -564,16 +566,21 @@ body {
     position: absolute;
     top: 0;
     right: 0;
+    transform: translate(40%, -10%);
     background: var(--accent);
     color: white;
     font-size: 0.7rem;
-    width: 18px;
+    min-width: 18px;
     height: 18px;
+    padding: 3px 2px 1px 2px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 500;
+    font-weight: 700;
+    line-height: 1;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 /* ======== LOGIN BUTTON ======== */
@@ -760,6 +767,17 @@ body {
 .contact-form-box button:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-hover);
+}
+
+.contact-form-box button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.contact-form-box button:disabled:hover {
+    transform: none;
+    box-shadow: var(--shadow);
 }
 
 /* NEWSLETTER */
