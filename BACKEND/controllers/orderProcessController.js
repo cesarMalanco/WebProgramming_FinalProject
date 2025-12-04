@@ -261,7 +261,7 @@ async function updateOrderPdfPath(orderId, pdfPath) {
   ]);
 }
 
-// Generar PDF de nota de compra 
+// Generar PDF de nota de compra
 async function generateInvoicePDF(orderId, orderData, items, user) {
   return new Promise((resolve, reject) => {
     try {
@@ -297,7 +297,7 @@ async function generateInvoicePDF(orderId, orderData, items, user) {
       doc.fontSize(24).fillColor(primaryColor).text("Rythmo", 40, 30);
       doc.fontSize(8).fillColor("#666").text("WE BELIEVE IN MUSIC", 40, 55);
 
-      // Info empresa (derecha) 
+      // Info empresa (derecha)
       const contactEmail = process.env.EMAIL_USER || "contacto@rythmo.com";
       doc
         .fontSize(8)
@@ -329,7 +329,7 @@ async function generateInvoicePDF(orderId, orderData, items, user) {
         })} a las ${new Date().toLocaleTimeString("es-MX", {
           hour: "2-digit",
           minute: "2-digit",
-          hour12: false
+          hour12: false,
         })}`,
         200,
         105
@@ -549,6 +549,7 @@ async function sendOrderConfirmationEmail(
   pdfPath
 ) {
   const fullPdfPath = path.join(__dirname, "..", pdfPath);
+  const logoPath = path.join(__dirname, "../../FRONTEND/IMAGES/logo.png");
 
   // Convertir valores de MXN a la moneda del usuario
   const currencyCode = orderData.currencyCode || "MXN";
@@ -611,6 +612,7 @@ async function sendOrderConfirmationEmail(
           
           <!-- Header -->
           <div style="background: linear-gradient(135deg, #8B5E3C 0%, #6B4423 100%); padding: 30px; text-align: center;">
+            <img src="cid:rythmologo" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px;">
             <h1 style="color: #ffffff; margin: 0; font-size: 28px;">Rythmo</h1>
             <p style="color: #f5e6d3; margin: 5px 0 0 0; font-size: 12px; letter-spacing: 2px;">WE BELIEVE IN MUSIC</p>
           </div>
@@ -633,10 +635,10 @@ async function sendOrderConfirmationEmail(
                   day: "numeric",
                 }
               )} a las ${new Date().toLocaleTimeString("es-MX", {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: false, // 24 horas
-              })}</p>
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false, // 24 horas
+    })}</p>
             </div>
             
             <h3 style="color: #8B5E3C; border-bottom: 2px solid #8B5E3C; padding-bottom: 10px;">Resumen de tu pedido</h3>
@@ -707,6 +709,11 @@ async function sendOrderConfirmationEmail(
       {
         filename: `Nota_Rythmo_${orderId}.pdf`,
         path: fullPdfPath,
+      },
+      {
+        filename: "logo.png",
+        path: logoPath,
+        cid: "rythmologo",
       },
     ],
   };

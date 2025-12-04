@@ -153,6 +153,9 @@ exports.sendResetCode = async (req, res) => {
 
   await User.saveResetCode(email, code, expires);
 
+  const path = require("path");
+  const logoPath = path.join(__dirname, "../../FRONTEND/IMAGES/logo.png");
+
   const emailHtml = `
     <!DOCTYPE html>
     <html>
@@ -164,6 +167,7 @@ exports.sendResetCode = async (req, res) => {
         
         <!-- Header -->
         <div style="background: linear-gradient(135deg, #8B5E3C 0%, #6B4423 100%); padding: 30px; text-align: center;">
+          <img src="cid:rythmologo" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px;">
           <h1 style="color: #ffffff; margin: 0; font-size: 28px;">Rythmo</h1>
           <p style="color: #f5e6d3; margin: 5px 0 0 0; font-size: 12px; letter-spacing: 2px;">WE BELIEVE IN MUSIC</p>
         </div>
@@ -217,6 +221,13 @@ exports.sendResetCode = async (req, res) => {
     subject: "🔐 Código de recuperación - Rythmo",
     html: emailHtml,
     text: `Tu código de recuperación de contraseña es: ${code}\n\nEste código expirará en 5 minutos.\n\nSi no solicitaste este código, puedes ignorar este mensaje.`,
+    attachments: [
+      {
+        filename: "logo.png",
+        path: logoPath,
+        cid: "rythmologo",
+      },
+    ],
   });
 
   res.json({ message: "Código enviado" });
