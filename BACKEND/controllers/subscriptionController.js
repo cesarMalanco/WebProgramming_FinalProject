@@ -31,25 +31,15 @@ async function subscribe(req, res) {
 
     // Solo generar cupón para suscripciones nuevas (no reactivaciones)
     if (!result.reactivated) {
-      try {
-        const couponInfo = await Subscription.generateWelcomeCoupon(email);
-        await sendWelcomeEmail(email, name, couponInfo);
+      const couponInfo = await Subscription.generateWelcomeCoupon(email);
+      await sendWelcomeEmail(email, name, couponInfo);
 
-        return res.json({
-          success: true,
-          message:
-            "¡Gracias por suscribirte! Revisa tu correo para obtener tu cupón de bienvenida",
-          couponCode: couponInfo.code,
-        });
-      } catch (emailError) {
-        // Si falla el email, aún así la suscripción fue exitosa
-        console.error("Error al enviar email de bienvenida:", emailError);
-        return res.json({
-          success: true,
-          message: "¡Gracias por suscribirte! Tu cupón ha sido generado.",
-          warning: "Hubo un problema al enviar el email. Contacta soporte para obtener tu cupón.",
-        });
-      }
+      return res.json({
+        success: true,
+        message:
+          "¡Gracias por suscribirte! Revisa tu correo para obtener tu cupón de bienvenida",
+        couponCode: couponInfo.code,
+      });
     }
 
     // Reactivación sin cupón nuevo
@@ -63,7 +53,7 @@ async function subscribe(req, res) {
     res.status(500).json({
       success: false,
       message: "Error al procesar la suscripción",
-      error: process.env.NODE_ENV === 'development' ? error.message : 'Error interno del servidor',
+      error: error.message,
     });
   }
 }
@@ -97,7 +87,7 @@ async function unsubscribe(req, res) {
     res.status(500).json({
       success: false,
       message: "Error al cancelar la suscripción",
-      error: process.env.NODE_ENV === 'development' ? error.message : 'Error interno del servidor',
+      error: error.message,
     });
   }
 }
@@ -105,16 +95,20 @@ async function unsubscribe(req, res) {
 // Enviar email de bienvenida
 async function sendWelcomeEmail(email, name, couponInfo) {
   const subscriberName = name || "Amante de la música";
-  
-  
-  
-  const logoUrl = "https://rythmo-tienda-de-musica.vercel.app/FRONTEND/IMAGES/logo.png";
+  const path = require("path");
+  const logoPath = path.join(__dirname, "../logo/logo.png");
 
   const mailOptions = {
     from: `"Rythmo Music Store" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: "🎵 ¡Bienvenido a Rythmo! Tu cupón de descuento está aquí",
-    // Eliminar attachments si usas URL directa
+    attachments: [
+      {
+        filename: "logo.png",
+        path: logoPath,
+        cid: "rythmologo",
+      },
+    ],
     html: `
       <!DOCTYPE html>
       <html>
@@ -127,7 +121,7 @@ async function sendWelcomeEmail(email, name, couponInfo) {
           
           <!-- Header -->
           <div style="background: linear-gradient(135deg, #8B5E3C 0%, #6B4423 100%); padding: 40px 30px; text-align: center;">
-            <img src="${logoUrl}" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;">
+            <img src="cid:rythmologo" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px;">
             <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 700;">Rythmo</h1>
             <p style="color: #f5e6d3; margin: 5px 0 0 0; font-size: 14px; letter-spacing: 2px;">WE BELIEVE IN MUSIC</p>
           </div>
