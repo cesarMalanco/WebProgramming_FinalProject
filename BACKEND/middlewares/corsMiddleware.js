@@ -15,6 +15,11 @@ const corsMiddleware = cors({
       return callback(null, true);
     }
 
+    // Permitir todos los dominios de Vercel (producción y preview)
+    if (origin.endsWith(".vercel.app")) {
+      return callback(null, true);
+    }
+
     // Lista de orígenes permitidos en producción
     const allowedOrigins = process.env.ALLOWED_ORIGINS
       ? process.env.ALLOWED_ORIGINS.split(",")

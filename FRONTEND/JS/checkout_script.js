@@ -1,5 +1,5 @@
 // ===== CONFIGURACIÓN DE API =====
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "https://web-5lecz6bm76nn.up-de-fra1-k8s-1.apps.run-on-seenode.com/api";
 
 // ===== UTILIDADES DE AUTENTICACIÓN =====
 function getAuthToken() {
@@ -364,7 +364,7 @@ async function processPayment() {
       });
 
       // Redirigir a página de pedidos o inicio
-      window.location.href = "/PAGES/index.html";
+      window.location.href = "/index.html";
     } else {
       throw new Error(data.message || "Error al procesar el pedido");
     }
