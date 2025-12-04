@@ -154,7 +154,7 @@ exports.sendResetCode = async (req, res) => {
   await User.saveResetCode(email, code, expires);
 
   const path = require("path");
-  const logoPath = path.join(__dirname, "../../FRONTEND/IMAGES/logo.png");
+  const logoPath = path.join(__dirname, "../logo/logo.png");
 
   const emailHtml = `
     <!DOCTYPE html>

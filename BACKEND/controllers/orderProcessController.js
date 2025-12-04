@@ -549,7 +549,7 @@ async function sendOrderConfirmationEmail(
   pdfPath
 ) {
   const fullPdfPath = path.join(__dirname, "..", pdfPath);
-  const logoPath = path.join(__dirname, "../../FRONTEND/IMAGES/logo.png");
+  const logoPath = path.join(__dirname, "../logo/logo.png");
 
   // Convertir valores de MXN a la moneda del usuario
   const currencyCode = orderData.currencyCode || "MXN";
