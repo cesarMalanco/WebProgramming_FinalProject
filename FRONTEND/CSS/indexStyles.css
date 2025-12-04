@@ -133,6 +133,39 @@
     color: var(--text-dark);
 }
 
+/* SWEETALERT – MODO OSCURO */
+.dark-mode .swal2-popup {
+    background: var(--card-bg) !important;
+    color: var(--text-dark) !important;
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    box-shadow:
+        0 0 12px rgba(255,0,255,0.4),
+        0 0 25px rgba(29,200,255,0.3);
+}
+
+.dark-mode .swal2-title {
+    color: var(--vibrant-2) !important;
+    text-shadow: 0 0 10px var(--vibrant-1);
+}
+
+.dark-mode .swal2-html-container {
+    color: var(--text-muted) !important;
+}
+
+.dark-mode .swal2-confirm {
+    background: var(--primary) !important;
+    color: var(--black) !important;
+    box-shadow:
+        0 0 8px rgba(255,0,255,0.5),
+        0 0 14px rgba(0,200,255,0.4);
+}
+
+.dark-mode .swal2-cancel {
+    background: var(--accent) !important;
+    color: var(--black) !important;
+}
+
+
 /* ======== RESET Y BASE ======== */
 * {
     margin: 0;
@@ -234,6 +267,10 @@ body {
     object-fit: contain;
     filter: drop-shadow(0 2px 4px rgba(102, 71, 10, 0.1));
     transition: var(--transition);
+}
+.dark-mode .logo img {
+    content: url("/IMAGES/logo_darkmode.png");
+    filter: drop-shadow(0 0 6px rgba(255, 0, 255, 0.6));
 }
 
 .logo:hover img {
@@ -583,6 +620,35 @@ body {
     background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-light-alt) 100%);
 }
 
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: 
+        linear-gradient(rgba(244, 237, 227, 0.1), rgba(236, 220, 199, 0.01)),
+        url("/IMAGES/hero_inicio.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.9;
+}
+
+.dark-mode .hero::before{
+    background: 
+        linear-gradient(rgba(244, 237, 227, 0.1), rgba(236, 220, 199, 0.01)),
+        url("https://i.pinimg.com/1200x/cf/f4/c9/cff4c9f57ad8a1360ec75ba81b2453f7.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
 .hero-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -596,17 +662,23 @@ body {
     font-family: 'Playfair Display', serif;
     font-size: 3.5rem;
     margin-bottom: 20px;
-    color: var(--primary);
+    color: white;
     line-height: 1.2;
+}
+.dark-mode .hero-text h2 {
+    color: var(--primary);
 }
 
 .hero-text p {
-    color: var(--text-muted);
+    color: white;
     font-size: 1.3rem;
     margin-bottom: 40px;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+}
+.dark-mode .hero-text p {
+    color: var(--text-muted);
 }
 
 /* ======== BUTTONS ======== */
@@ -744,6 +816,10 @@ body {
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
+}
+
+.product-badge i {
+    font-size: 20px; 
 }
 
 .product-badge.sale-badge {
@@ -912,25 +988,68 @@ body {
     overflow: hidden;
 }
 
-
-
 .about-image i {
     font-size: 8rem;
     color: rgba(255, 255, 255, 0.9);
     z-index: 1;
 }
 
+.about-image::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: 
+        linear-gradient(rgba(244, 237, 227, 0.1), rgba(236, 220, 199, 0.01)),
+        url("/IMAGES/ourHistory.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.dark-mode .about-image::before{
+    background: 
+        linear-gradient(rgba(244, 237, 227, 0.1), rgba(236, 220, 199, 0.01)),
+        url("/IMAGES/ourHistory_dark.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
 /* ======== NEWSLETTER ======== */
 .newsletter {
     padding: 80px 0;
-    background: var(--primary);
+    background: 
+        linear-gradient(rgba(244, 237, 227, 0.1), rgba(236, 220, 199, 0.01)),
+        url("/IMAGES/newsletter_bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
     text-align: center;
+}
+
+.dark-mode .newsletter{
+    background: 
+        linear-gradient(rgba(244, 237, 227, 0.1), rgba(236, 220, 199, 0.01)),
+        url("/IMAGES/newsletter_bg_dark.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    opacity: 0.7;
 }
 
 .newsletter-content {
     max-width: 600px;
     margin: 0 auto;
+    z-index: 2;
 }
 
 .newsletter h2 {

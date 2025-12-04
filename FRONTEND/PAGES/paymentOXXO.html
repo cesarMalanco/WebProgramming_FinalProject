@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rythmo | Pago en OXXO</title>
-    <link rel="icon" type="image/png" href="/IMAGES/TiredCat_No-bg.png"/>
+    <link rel="icon" type="image/png" href="/IMAGES/logo_darkmode.png"/>
     <link rel="stylesheet" href="/CSS/paymentOXXO.css">
     <script src="https://kit.fontawesome.com/d90850e71e.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -14,6 +14,23 @@
     <div id="header"></div>
 
     <main class="oxxo-container">
+        <!-- ICONO ACCESIBILIDAD -->
+        <div id="accessibility-icon" class="nav-link search" title="Accesibilidad"><i class="fa-solid fa-paintbrush"></i></div>
+        <!-- PANEL ACCESIBILIDAD -->
+        <div id="accessibility-panel" class="hidden">
+            <p><strong>Accesibilidad</strong></p>
+        
+            <button id="increase-text">A+</button>
+            <button id="decrease-text">A-</button>
+            <br><br>
+        
+            <button id="light-mode-btn" title="Modo claro"><i class="fa-solid fa-sun"></i></button>
+
+            <button id="dark-mode-btn" title="Modo oscuro"><i class="fa-solid fa-moon"></i></button>
+            <br><br>
+                
+            <button id="reset-accessibility">Restablecer</button>
+        </div>
 
         <h2 class="title">
             Por favor <span class="highlight">escanea este código de barras</span> en cualquier tienda OXXO para completar tu pago dentro de 
@@ -26,7 +43,7 @@
 
         <!-- Cuadro blanco -->
         <div class="barcode-box">
-            <svg id="barcode"></svg>
+            <img src="/IMAGES/bar_code.png" alt="Código de barras">
             <p id="barcode-number">2510042748740009</p>
         </div>
 
@@ -158,5 +175,6 @@
             });
         }
     </script>
+    <script src="/JS/acces_script.js"></script>
 </body>
 </html>

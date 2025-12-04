@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transferencia Bancaria | Rythmo</title>
+    <link rel="icon" type="image/png" href="/IMAGES/logo_darkmode.png"/>
     <script src="https://kit.fontawesome.com/d90850e71e.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/CSS/transferStyles.css">
@@ -21,7 +22,26 @@
             </div>
             <h1 class="title">Transferencia Bancaria</h1>
             <p class="subtitle">Realiza tu pago con los siguientes datos bancarios</p>
+            <!-- ICONO ACCESIBILIDAD -->
+        <div id="accessibility-icon" class="nav-link search" title="Accesibilidad"><i class="fa-solid fa-paintbrush"></i></div>
+        <!-- PANEL ACCESIBILIDAD -->
+        <div id="accessibility-panel" class="hidden">
+            <p><strong>Accesibilidad</strong></p>
+        
+            <button id="increase-text">A+</button>
+            <button id="decrease-text">A-</button>
+            <br><br>
+        
+            <button id="light-mode-btn" title="Modo claro"><i class="fa-solid fa-sun"></i></button>
+
+            <button id="dark-mode-btn" title="Modo oscuro"><i class="fa-solid fa-moon"></i></button>
+            <br><br>
+                
+            <button id="reset-accessibility">Restablecer</button>
         </div>
+        </div>
+
+        
 
         <!-- Caja de Advertencia -->
         <div class="alert-box">
@@ -348,5 +368,6 @@
         console.log('Estilos personalizados agregados');
     });
     </script>
+    <script src="/JS/acces_script.js"></script>
 </body>
 </html>
