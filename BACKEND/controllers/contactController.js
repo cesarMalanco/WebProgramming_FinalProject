@@ -24,11 +24,14 @@ async function sendContactMessage(req, res) {
       });
     }
 
+    // URL del logo desde Vercel
+    const logoUrl = "https://rythmo-k1t0qqoht-fer-velas-projects.vercel.app/IMAGES/logo.png";
+
     // Email para el equipo de Rythmo
     const mailToTeam = {
       from: `"Rythmo Contacto" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER, // Se envía al mismo correo de Rythmo
-      replyTo: email, // Para que puedan responder directamente al cliente
+      to: process.env.EMAIL_USER,
+      replyTo: email,
       subject: `📬 Nuevo mensaje de contacto - ${name}`,
       html: `
         <!DOCTYPE html>
@@ -78,22 +81,11 @@ async function sendContactMessage(req, res) {
       `,
     };
 
-    // Path para el logo
-    const path = require("path");
-    const logoPath = path.join(__dirname, "../../FRONTEND/IMAGES/logo.png");
-
     // Email de confirmación para el cliente
     const mailToClient = {
       from: `"Rythmo Music Store" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "🎵 Hemos recibido tu mensaje - Rythmo",
-      attachments: [
-        {
-          filename: "logo.png",
-          path: logoPath,
-          cid: "rythmologo",
-        },
-      ],
       html: `
         <!DOCTYPE html>
         <html>
@@ -105,7 +97,7 @@ async function sendContactMessage(req, res) {
             
             <!-- Header -->
             <div style="background: linear-gradient(135deg, #8B5E3C 0%, #6B4423 100%); padding: 40px 30px; text-align: center;">
-              <img src="cid:rythmologo" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px;">
+              <img src="${logoUrl}" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px;">
               <h1 style="color: #ffffff; margin: 0; font-size: 28px;">Rythmo</h1>
               <p style="color: #f5e6d3; margin: 5px 0 0 0; font-size: 12px; letter-spacing: 2px;">WE BELIEVE IN MUSIC</p>
             </div>
@@ -162,6 +154,11 @@ async function sendContactMessage(req, res) {
     });
   }
 }
+
+// ===== EXPORTACIÓN DE MÓDULOS =====
+module.exports = {
+  sendContactMessage,
+};
 
 // ===== EXPORTACIÓN DE MÓDULOS =====
 module.exports = {
