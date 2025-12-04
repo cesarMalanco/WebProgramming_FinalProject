@@ -7,7 +7,6 @@ async function loadCaptcha() {
   if (emailInput) {
     email = emailInput.value.trim();
   }
-  
   const res = await fetch("https://web-5lecz6bm76nn.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/captcha", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -55,7 +54,17 @@ if (loginBtn) {
         }),
       });
 
-      const data = await res.json();
+  // Petición login+captcha
+  const res = await fetch("https://web-5lecz6bm76nn.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email,
+      password,
+      captchaId,
+      captchaAnswer: answer,
+    }),
+  });
 
       if (!res.ok) {
         Swal.fire({
@@ -137,9 +146,11 @@ if (loginBtn) {
     } catch (error) {
       console.error("Error en login:", error);
       Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Hubo un problema al intentar iniciar sesión. Por favor intenta de nuevo.",
+        icon: "success",
+        title: "Login exitoso",
+        text: "Sesión iniciada como: " + (data.name || email),
+      }).then(() => {
+        window.location.href = "/index.html";
       });
     }
   });
