@@ -96,7 +96,7 @@ async function unsubscribe(req, res) {
 async function sendWelcomeEmail(email, name, couponInfo) {
   const subscriberName = name || "Amante de la música";
   const path = require("path");
-  const logoPath = path.join(__dirname, "../../FRONTEND/IMAGES/logo.png");
+  const logoPath = path.join(__dirname, "https://rythmo-tienda-de-musica.vercel.app/FRONTEND/IMAGES/logo.png");
 
   const mailOptions = {
     from: `"Rythmo Music Store" <${process.env.EMAIL_USER}>`,
