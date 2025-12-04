@@ -133,6 +133,39 @@
     color: var(--text-dark);
 }
 
+/* SWEETALERT – MODO OSCURO */
+.dark-mode .swal2-popup {
+    background: var(--card-bg) !important;
+    color: var(--text-dark) !important;
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    box-shadow:
+        0 0 12px rgba(255,0,255,0.4),
+        0 0 25px rgba(29,200,255,0.3);
+}
+
+.dark-mode .swal2-title {
+    color: var(--vibrant-2) !important;
+    text-shadow: 0 0 10px var(--vibrant-1);
+}
+
+.dark-mode .swal2-html-container {
+    color: var(--text-muted) !important;
+}
+
+.dark-mode .swal2-confirm {
+    background: var(--primary) !important;
+    color: var(--black) !important;
+    box-shadow:
+        0 0 8px rgba(255,0,255,0.5),
+        0 0 14px rgba(0,200,255,0.4);
+}
+
+.dark-mode .swal2-cancel {
+    background: var(--accent) !important;
+    color: var(--black) !important;
+}
+
+
 /* ======== RESET Y BASE ======== */
 * {
     margin: 0;
@@ -235,6 +268,10 @@ body {
     object-fit: contain;
     filter: drop-shadow(0 2px 4px rgba(102, 71, 10, 0.1));
     transition: var(--transition);
+}
+.dark-mode .logo img {
+    content: url("/IMAGES/logo_darkmode.png");
+    filter: drop-shadow(0 0 6px rgba(255, 0, 255, 0.6));
 }
 
 .logo:hover img {
@@ -1364,8 +1401,7 @@ body {
 
 /*SECCIÓN DE ENVOLTURA DE REGALO*/
 .gift-section {
-    background: 
-        
+    background:     
         url('/IMAGES/envoltura_2.png');
     background-size: cover;
     background-position: center, center;
@@ -1378,7 +1414,6 @@ body {
     height: auto;
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: var(--shadow);
 }
 
@@ -1395,11 +1430,6 @@ body {
     transform: translateY(-5px);
     border-color: var(--primary-light);
     box-shadow: var(--shadow-hover);
-}
-
-.gift-section > * {
-    position: relative;
-    z-index: 3;
 }
 
 /* ENCABEZADO DE REGALO */
@@ -1455,7 +1485,7 @@ body {
     
 }
 
-.gift-content, .gift-header {
+.gift-content {
     background: rgba(255,255,255,0.4);
     border-radius: 8px;
     width: fit-content;
@@ -1532,44 +1562,92 @@ body {
     font-size: 1rem;
 }
 
-/* MODO OSCURO */
+/* ======== MODO OSCURO PARA SECCIÓN DE REGALO ======== */
 .dark-mode .gift-section {
-    background: 
-        linear-gradient(135deg, rgba(20, 24, 43, 0.95) 0%, rgba(11, 14, 26, 0.98) 100%),
-        url('/IMAGES/envoltura_2.png');
-    background-size: 120px, cover;
-    background-position: right 25px center, center;
-    background-blend-mode: soft-light;
-    border: 2px solid rgba(255, 44, 223, 0.2);
+    background:     
+        url('/IMAGES/envoltura_dark.png') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    border: 2px solid rgba(255, 44, 223, 0.3) !important;
+    box-shadow: 
+        0 0 25px rgba(29, 200, 255, 0.3) !important;
 }
 
 .dark-mode .gift-section:hover {
-    border-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 
+        0 0 15px rgba(255, 44, 223, 0.3),
+        0 0 25px rgba(212, 129, 215, 0.4) !important;
 }
 
-.dark-mode .gift-section::before {
-    background: 
-        radial-gradient(circle at 85% 30%, rgba(255, 44, 223, 0.1) 0%, transparent 50%),
-        linear-gradient(135deg, rgba(29, 200, 255, 0.05) 0%, transparent 50%);
+
+
+/* Título con gradiente neón */
+.dark-mode .gift-title {
+    color: transparent !important;
+    background: linear-gradient(45deg, var(--primary), var(--vibrant-2)) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    text-shadow: 
+        0 0 10px rgba(255, 44, 223, 0.5),
+        0 0 20px rgba(29, 200, 255, 0.3) !important;
 }
 
+/* Descripción en modo oscuro */
+.dark-mode .gift-description {
+    color: var(--text-dark) !important;
+    font-weight: 600 !important;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1) !important;
+}
+.dark-mode .gift-content {
+    background: rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(3px) !important;
+    border: 1px solid rgba(255, 44, 223, 0.2) !important;
+    border-radius: 8px !important;
+}
+
+.dark-mode .gift-price {
+    color: #e068c2 !important;
+    font-weight: 700 !important;
+    text-shadow: 
+        0 0 10px rgba(255, 5, 184, 0.7),
+        0 0 20px rgba(255, 5, 168, 0.4) !important;
+}
+
+/* Toggle de regalo */
 .dark-mode .gift-toggle {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 44, 223, 0.3);
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 2px solid rgba(255, 44, 223, 0.3) !important;
+    backdrop-filter: blur(5px) !important;
 }
 
 .dark-mode .gift-toggle:hover {
-    background: rgba(255, 44, 223, 0.1);
-    border-color: var(--primary);
+    background: rgba(255, 44, 223, 0.1) !important;
+    border-color: var(--primary) !important;
+    box-shadow: 
+        0 0 10px rgba(255, 44, 223, 0.4),
+        0 0 20px rgba(255, 29, 210, 0.3) !important;
 }
 
-.dark-mode .gift-toggle.active {
-    background: linear-gradient(135deg, rgba(255, 44, 223, 0.15), rgba(29, 200, 255, 0.1));
-    border-color: var(--primary);
-}
-
+/* Switch */
 .dark-mode .gift-switch {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 44, 223, 0.2) !important;
+}
+
+.dark-mode .gift-toggle input:checked + .gift-switch {
+    background: linear-gradient(135deg, var(--primary), var(--vibrant-1)) !important;
+    box-shadow: 
+        0 0 10px rgba(255, 44, 223, 0.6),
+        0 0 20px rgba(255, 44, 223, 0.3) !important;
+}
+
+.dark-mode .gift-switch::after {
+    background: var(--black) !important;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.5),
+        0 0 5px rgba(255, 44, 223, 0.3) !important;
 }
 
 
@@ -1683,7 +1761,6 @@ body {
     box-shadow: none;
 }
 
-
 /* BOTÓN GENERAL */
 .btn {
     display: inline-flex;
@@ -1701,9 +1778,35 @@ body {
     cursor: pointer;
 }
 
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
+.general-btn {
+    position: relative;  
+    overflow: hidden;    
+    z-index: 0;          
+}
+
+.general-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(139, 94, 60, 0.4);
+}
+
+.general-btn:active {
+    transform: translateY(-1px);
+}
+
+.general-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.6s;
+     z-index: -1;
+}
+
+.general-btn:hover::before {
+    left: 100%;
 }
 
 /* MODO OSCURO PARA CARRITO */
@@ -1734,30 +1837,6 @@ body {
 
 .dark-mode .empty-cart-message {
     color: var(--text-muted);
-}
-
-.general-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(139, 94, 60, 0.4);
-}
-
-.general-btn:active {
-    transform: translateY(-1px);
-}
-
-.general-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: 0.6s;
-}
-
-.general-btn:hover::before {
-    left: 100%;
 }
 
 /* ======== ESTILOS PARA CUPONES ======== */

@@ -112,7 +112,7 @@ async function sendWelcomeEmail(email, name, couponInfo) {
           
           <!-- Header -->
           <div style="background: linear-gradient(135deg, #8B5E3C 0%, #6B4423 100%); padding: 40px 30px; text-align: center;">
-            <img src="https://i.imgur.com/placeholder.png" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px;">
+            <img src="http://localhost:3000/static/IMAGES/logo.png" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px;">
             <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 700;">Rythmo</h1>
             <p style="color: #f5e6d3; margin: 5px 0 0 0; font-size: 14px; letter-spacing: 2px;">WE BELIEVE IN MUSIC</p>
           </div>
@@ -153,7 +153,7 @@ async function sendWelcomeEmail(email, name, couponInfo) {
             </div>
             <p style="color: #5a4a3a; font-size: 11px; margin: 15px 0 0 0;">
               Recibiste este correo porque te suscribiste a nuestro newsletter.<br>
-              <a href="#" style="color: #8B5E3C;">Cancelar suscripción</a>
+              
             </p>
           </div>
           
