@@ -106,31 +106,66 @@ async function unsubscribe(req, res) {
 async function sendWelcomeEmail(email, name, couponInfo) {
   const subscriberName = name || "Amante de la música";
   
-  // OPCIÓN 1: Si tienes el logo en tu servidor local
-  // const path = require("path");
-  // const logoPath = path.join(__dirname, "..", "public", "images", "logo.png");
+  // Intentar cargar el logo desde el servidor local primero
+  let logoAttachment = null;
+  const localLogoPath = path.join(__dirname, "..", "..", "FRONTEND", "IMAGES", "logo.png");
   
-  // OPCIÓN 2: Usar la URL directamente (sin attachment)
+  try {
+    // Verificar si el archivo existe localmente
+    await fs.access(localLogoPath);
+    logoAttachment = {
+      filename: "logo.png",
+      path: localLogoPath,
+      cid: "rythmologo"
+    };
+  } catch (error) {
+    console.warn("Logo local no encontrado, usando URL como fallback");
+  }
+
+  // URL del logo como fallback
   const logoUrl = "https://rythmo-tienda-de-musica.vercel.app/FRONTEND/IMAGES/logo.png";
+  
+  // Usar CID si tenemos attachment, URL si no
+  const logoSrc = logoAttachment ? "cid:rythmologo" : logoUrl;
 
   const mailOptions = {
     from: `"Rythmo Music Store" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: "🎵 ¡Bienvenido a Rythmo! Tu cupón de descuento está aquí",
-    // Eliminar attachments si usas URL directa
+    ...(logoAttachment && { attachments: [logoAttachment] }),
     html: `
       <!DOCTYPE html>
       <html>
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+          /* Forzar la carga de imágenes */
+          img {
+            display: block !important;
+            border: 0 !important;
+            outline: none !important;
+            text-decoration: none !important;
+          }
+        </style>
       </head>
       <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f0e8;">
         <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
           
           <!-- Header -->
           <div style="background: linear-gradient(135deg, #8B5E3C 0%, #6B4423 100%); padding: 40px 30px; text-align: center;">
-            <img src="${logoUrl}" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;">
+            <!-- Logo con fallback visual -->
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center">
+                  <img src="${logoSrc}" 
+                       alt="Rythmo Logo" 
+                       width="80" 
+                       height="80" 
+                       style="width: 80px !important; height: 80px !important; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; border-radius: 50%;">
+                </td>
+              </tr>
+            </table>
             <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 700;">Rythmo</h1>
             <p style="color: #f5e6d3; margin: 5px 0 0 0; font-size: 14px; letter-spacing: 2px;">WE BELIEVE IN MUSIC</p>
           </div>
