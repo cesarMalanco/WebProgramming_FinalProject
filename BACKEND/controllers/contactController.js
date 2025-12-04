@@ -25,7 +25,7 @@ async function sendContactMessage(req, res) {
     }
 
     // URL del logo desde Vercel
-    const logoUrl = "https://rythmo-k1t0qqoht-fer-velas-projects.vercel.app/IMAGES/logo.png";
+    const logoUrl = "https://rythmo-tienda-de-musica.vercel.app/IMAGES/logo.png";;
 
     // Email para el equipo de Rythmo
     const mailToTeam = {
