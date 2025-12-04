@@ -114,7 +114,7 @@ const createProd = async (req, res) => {
     }
 
     const imageUrl = imagePath
-      ? `http://localhost:3000/uploads/${imagePath}`
+      ? `https://web-5lecz6bm76nn.up-de-fra1-k8s-1.apps.run-on-seenode.com/uploads/${imagePath}`
       : null;
 
     const productId = await prodModel.createProd(
@@ -204,7 +204,7 @@ const updateProd = async (req, res) => {
       if (existingProduct.image) {
         deleteImageFile(existingProduct.image);
       }
-      imageUrl = `http://localhost:3000/uploads/${imagePath}`;
+      imageUrl = `https://web-5lecz6bm76nn.up-de-fra1-k8s-1.apps.run-on-seenode.com/uploads/${imagePath}`;
     } else {
       // Mantener la imagen actual
       imageUrl = existingProduct.image;

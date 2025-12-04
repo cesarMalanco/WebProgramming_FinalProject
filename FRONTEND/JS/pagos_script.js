@@ -1,7 +1,7 @@
 // /FRONTEND/JS/pagos_script.js
 
 // ===== CONFIGURACIÓN DE API =====
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "https://web-5lecz6bm76nn.up-de-fra1-k8s-1.apps.run-on-seenode.com";
 
 // ===== UTILIDADES DE AUTENTICACIÓN =====
 function getAuthToken() {
@@ -688,7 +688,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           confirmButtonText: "Ver inicio",
           confirmButtonColor: "#8B5E3C",
         }).then(() => {
-          window.location.href = "/PAGES/index.html";
+          window.location.href = "/index.html";
         });
       } else {
         Swal.fire({
@@ -970,7 +970,7 @@ async function processTransferPayment() {
       confirmButtonText: "Entendido",
       confirmButtonColor: "#8B5E3C",
     }).then(() => {
-      window.location.href = "/PAGES/index.html";
+      window.location.href = "/index.html";
     });
   } else {
     Swal.fire({
