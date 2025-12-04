@@ -326,6 +326,10 @@ async function generateInvoicePDF(orderId, orderData, items, user) {
           year: "numeric",
           month: "short",
           day: "numeric",
+        })} a las ${new Date().toLocaleTimeString("es-MX", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false
         })}`,
         200,
         105
@@ -628,7 +632,11 @@ async function sendOrderConfirmationEmail(
                   month: "long",
                   day: "numeric",
                 }
-              )}</p>
+              )} a las ${new Date().toLocaleTimeString("es-MX", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false, // 24 horas
+              })}</p>
             </div>
             
             <h3 style="color: #8B5E3C; border-bottom: 2px solid #8B5E3C; padding-bottom: 10px;">Resumen de tu pedido</h3>

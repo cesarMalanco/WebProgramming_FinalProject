@@ -66,7 +66,7 @@ async function loadProducts() {
         description: product.description || "",
         price: parseFloat(product.price),
         category: product.category,
-        image: product.image || "/IMAGES/TiredCat_No-bg.png",
+        image: product.image || "",
         stock: product.stock || 0,
         onSale: product.isFeatured === 1 || product.isFeatured === true,
         discount: parseInt(product.discount) || 0,
