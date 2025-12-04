@@ -78,11 +78,22 @@ async function sendContactMessage(req, res) {
       `,
     };
 
+    // Path para el logo
+    const path = require("path");
+    const logoPath = path.join(__dirname, "../../FRONTEND/IMAGES/logo.png");
+
     // Email de confirmación para el cliente
     const mailToClient = {
       from: `"Rythmo Music Store" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "🎵 Hemos recibido tu mensaje - Rythmo",
+      attachments: [
+        {
+          filename: "logo.png",
+          path: logoPath,
+          cid: "rythmologo",
+        },
+      ],
       html: `
         <!DOCTYPE html>
         <html>
@@ -94,7 +105,7 @@ async function sendContactMessage(req, res) {
             
             <!-- Header -->
             <div style="background: linear-gradient(135deg, #8B5E3C 0%, #6B4423 100%); padding: 40px 30px; text-align: center;">
-              <img src="http://localhost:3000/static/IMAGES/logo.png" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px;">
+              <img src="cid:rythmologo" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px;">
               <h1 style="color: #ffffff; margin: 0; font-size: 28px;">Rythmo</h1>
               <p style="color: #f5e6d3; margin: 5px 0 0 0; font-size: 12px; letter-spacing: 2px;">WE BELIEVE IN MUSIC</p>
             </div>
