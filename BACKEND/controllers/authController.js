@@ -144,93 +144,91 @@ exports.login = async (req, res) => {
 
 // Función para enviar código (recuperación de contraseña)
 exports.sendResetCode = async (req, res) => {
-  const { email } = req.body;
-  const user = await User.findByEmail(email);
-  if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+  try {
+    const { email } = req.body;
+    const user = await User.findByEmail(email);
+    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
 
-  const code = crypto.randomInt(100000, 999999).toString();
-  const expires = new Date(Date.now() + 5 * 60 * 1000); // 5 minutos
+    const code = crypto.randomInt(100000, 999999).toString();
+    const expires = new Date(Date.now() + 5 * 60 * 1000); // 5 minutos
 
-  await User.saveResetCode(email, code, expires);
+    await User.saveResetCode(email, code, expires);
 
-  const path = require("path");
-  const logoPath = path.join(__dirname, "../../FRONTEND/IMAGES/logo.png");
+    // Usar URL directa del logo
+    const logoUrl = "https://rythmo-tienda-de-musica.vercel.app/FRONTEND/IMAGES/logo.png";
 
-  const emailHtml = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="utf-8">
-    </head>
-    <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f0e8;">
-      <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
-        
-        <!-- Header -->
-        <div style="background: linear-gradient(135deg, #8B5E3C 0%, #6B4423 100%); padding: 30px; text-align: center;">
-          <img src="cid:rythmologo" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px;">
-          <h1 style="color: #ffffff; margin: 0; font-size: 28px;">Rythmo</h1>
-          <p style="color: #f5e6d3; margin: 5px 0 0 0; font-size: 12px; letter-spacing: 2px;">WE BELIEVE IN MUSIC</p>
-        </div>
-        
-        <!-- Content -->
-        <div style="padding: 30px;">
-          <div style="text-align: center; margin-bottom: 30px;">
-            <div style="font-size: 50px;">🔐</div>
-            <h2 style="color: #8B5E3C; margin: 10px 0;">Recuperación de Contraseña</h2>
-            <p style="color: #666;">Hemos recibido una solicitud para restablecer tu contraseña</p>
+    const emailHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+      </head>
+      <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f0e8;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+          
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #8B5E3C 0%, #6B4423 100%); padding: 30px; text-align: center;">
+            <img src="${logoUrl}" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 28px;">Rythmo</h1>
+            <p style="color: #f5e6d3; margin: 5px 0 0 0; font-size: 12px; letter-spacing: 2px;">WE BELIEVE IN MUSIC</p>
           </div>
           
-          <div style="background-color: #f9f6f2; padding: 25px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
-            <p style="margin: 0 0 15px 0; color: #666;">Tu código de verificación es:</p>
-            <div style="background: linear-gradient(135deg, #8B5E3C 0%, #6B4423 100%); color: white; font-size: 32px; font-weight: bold; letter-spacing: 8px; padding: 20px 30px; border-radius: 10px; display: inline-block;">
-              ${code}
+          <!-- Content -->
+          <div style="padding: 30px;">
+            <div style="text-align: center; margin-bottom: 30px;">
+              <div style="font-size: 50px;">🔐</div>
+              <h2 style="color: #8B5E3C; margin: 10px 0;">Recuperación de Contraseña</h2>
+              <p style="color: #666;">Hemos recibido una solicitud para restablecer tu contraseña</p>
             </div>
-            <p style="margin: 15px 0 0 0; color: #999; font-size: 13px;">
-              ⏱️ Este código expirará en <strong>5 minutos</strong>
-            </p>
+            
+            <div style="background-color: #f9f6f2; padding: 25px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+              <p style="margin: 0 0 15px 0; color: #666;">Tu código de verificación es:</p>
+              <div style="background: linear-gradient(135deg, #8B5E3C 0%, #6B4423 100%); color: white; font-size: 32px; font-weight: bold; letter-spacing: 8px; padding: 20px 30px; border-radius: 10px; display: inline-block;">
+                ${code}
+              </div>
+              <p style="margin: 15px 0 0 0; color: #999; font-size: 13px;">
+                ⏱️ Este código expirará en <strong>5 minutos</strong>
+              </p>
+            </div>
+            
+            <div style="background-color: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+              <p style="margin: 0; color: #856404; font-size: 14px;">
+                <strong>⚠️ Importante:</strong> Si no solicitaste este código, puedes ignorar este mensaje. Tu cuenta permanecerá segura.
+              </p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+              <p style="color: #666; font-size: 14px;">
+                Si tienes problemas, contáctanos en:<br>
+                <a href="mailto:soporte@rythmo.com" style="color: #8B5E3C; text-decoration: none;">soporte@rythmo.com</a>
+              </p>
+            </div>
           </div>
           
-          <div style="background-color: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-            <p style="margin: 0; color: #856404; font-size: 14px;">
-              <strong>⚠️ Importante:</strong> Si no solicitaste este código, puedes ignorar este mensaje. Tu cuenta permanecerá segura.
-            </p>
+          <!-- Footer -->
+          <div style="background-color: #2B1E14; padding: 20px; text-align: center;">
+            <p style="color: #8B5E3C; margin: 0;">Rythmo Music Store</p>
+            <p style="color: #666; font-size: 12px; margin: 5px 0 0 0;">Tu tienda de música de confianza desde 1975</p>
           </div>
           
-          <div style="text-align: center; margin-top: 30px;">
-            <p style="color: #666; font-size: 14px;">
-              Si tienes problemas, contáctanos en:<br>
-              <a href="mailto:soporte@rythmo.com" style="color: #8B5E3C; text-decoration: none;">soporte@rythmo.com</a>
-            </p>
-          </div>
         </div>
-        
-        <!-- Footer -->
-        <div style="background-color: #2B1E14; padding: 20px; text-align: center;">
-          <p style="color: #8B5E3C; margin: 0;">Rythmo Music Store</p>
-          <p style="color: #666; font-size: 12px; margin: 5px 0 0 0;">Tu tienda de música de confianza desde 1975</p>
-        </div>
-        
-      </div>
-    </body>
-    </html>
-  `;
+      </body>
+      </html>
+    `;
 
-  await transporter.sendMail({
-    from: `"Rythmo Music Store" <${process.env.EMAIL_USER}>`,
-    to: email,
-    subject: "🔐 Código de recuperación - Rythmo",
-    html: emailHtml,
-    text: `Tu código de recuperación de contraseña es: ${code}\n\nEste código expirará en 5 minutos.\n\nSi no solicitaste este código, puedes ignorar este mensaje.`,
-    attachments: [
-      {
-        filename: "logo.png",
-        path: logoPath,
-        cid: "rythmologo",
-      },
-    ],
-  });
+    await transporter.sendMail({
+      from: `"Rythmo Music Store" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: "🔐 Código de recuperación - Rythmo",
+      html: emailHtml,
+      text: `Tu código de recuperación de contraseña es: ${code}\n\nEste código expirará en 5 minutos.\n\nSi no solicitaste este código, puedes ignorar este mensaje.`,
+    });
 
-  res.json({ message: "Código enviado" });
+    res.json({ message: "Código enviado" });
+  } catch (error) {
+    console.error("Error al enviar código de recuperación:", error);
+    res.status(500).json({ message: "Error al enviar el código de recuperación" });
+  }
 };
 
 // Función para verificar código (recuperación de contraseña)
