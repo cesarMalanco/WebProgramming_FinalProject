@@ -10,7 +10,6 @@ async function createCaptcha(email){
         size: 5,
         noise: 2,
         color: true, /* pone los caracteres multicolor */
-        background: "#ffffff",
     });
 
     const captchaId = Date.now().toString();
