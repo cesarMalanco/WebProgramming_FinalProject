@@ -43,17 +43,6 @@ if (loginBtn) {
     }
 
     try {
-  const passwordConfirm = document.getElementById("passwordConfirm").value.trim();
-
-  if (password !== passwordConfirm) {
-      Swal.fire({
-          icon: "error",
-          title: "Contraseñas no coinciden",
-          text: "Asegúrate de escribir la misma contraseña en ambos campos",
-      });
-      return;
-  }
-
 
   // Petición login+captcha
   const res = await fetch("https://web-5lecz6bm76nn.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/auth/login", {
