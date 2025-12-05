@@ -26,6 +26,7 @@ async function sendContactMessage(req, res) {
     }
 
     // Ruta del logo
+    //SE CAMBIA
     const logoPath = path.join(__dirname, "../logo/logo.png");
 
     // Email para el equipo de Rythmo
