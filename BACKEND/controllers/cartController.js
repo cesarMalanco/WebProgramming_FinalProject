@@ -222,6 +222,8 @@ async function syncCart(req, res) {
         .json({ success: false, message: "Items inválidos" });
     }
 
+    await Cart.clearCart(userId);
+
     // Agregar cada item al carrito de la BD
     for (const item of items) {
       if (item.id && item.quantity > 0) {
