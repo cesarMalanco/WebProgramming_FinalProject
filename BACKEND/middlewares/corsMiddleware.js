@@ -1,34 +1,42 @@
 // ===== DEPENDENCIAS Y CONFIGURACIÓN =====
-const cors = require('cors');
-
-// ===== IPs AUTORIZADAS =====
-const ALLOWED_ORIGINS = [
-  'http://localhost:5500',
-  'http://127.0.0.1:5500',
-  'http://localhost:57812',
-  'http://127.0.0.1:57812',
-  'http://localhost:60716',
-  'http://127.0.0.1:60716',
-  'http://localhost:54686',
-  'http://127.0.0.1:54686',
-  
-];
+const cors = require("cors");
 
 // ===== CORS MIDDLEWARE =====
+// En desarrollo permite cualquier origen, en producción usar lista blanca
 const corsMiddleware = cors({
   origin: function (origin, callback) {
-    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.error("Not allowed by CORS:", origin);
-      callback(new Error("Not allowed by CORS"));
+    // Permitir requests sin origin 
+    if (!origin) {
+      return callback(null, true);
     }
+
+    // En desarrollo, permitir localhost en cualquier puerto
+    if (origin.includes("localhost") || origin.includes("127.0.0.1")) {
+      return callback(null, true);
+    }
+
+    // Permitir todos los dominios de Vercel (producción y preview)
+    if (origin.endsWith(".vercel.app")) {
+      return callback(null, true);
+    }
+
+    // Lista de orígenes permitidos en producción
+    const allowedOrigins = process.env.ALLOWED_ORIGINS
+      ? process.env.ALLOWED_ORIGINS.split(",")
+      : [];
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    console.error("Origen no permitido por CORS:", origin);
+    callback(new Error("Not allowed by CORS"));
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  exposedHeaders: ['Authorization']
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  exposedHeaders: ["Authorization"],
 });
 
 // ===== EXPORTACIÓN DE CORS =====
-module.exports = corsMiddleware; 
+module.exports = corsMiddleware;

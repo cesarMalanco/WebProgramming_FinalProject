@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Rythmo | Métodos de Pago</title>
-    <link rel="icon" type="image/png" href="/IMAGES/TiredCat_No-bg.png"/>
+    <link rel="icon" type="image/png" href="/IMAGES/logo_darkmode.png"/>
     <script src="https://kit.fontawesome.com/d90850e71e.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/CSS/generalPayStyles.css"/>
@@ -27,7 +27,7 @@
                 <!-- CARRITO CON BADGE -->
                 <a href="/PAGES/cart.html" class="header-icon cart" title="Carrito de compras">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="cart-count">0</span>
+                    <span class="cart-count" id="cart-badge" style="display: none;">0</span>
                 </a>
                 <!-- USUARIO LOGUEADO O LOGIN -->
                 <span id="user-name" class="welcome-user" style="display:none"></span>
@@ -80,7 +80,7 @@
                                 showConfirmButton: false
                             });
                             setTimeout(function() {
-                                window.location.href = "/PAGES/index.html";
+                                window.location.href = "/index.html";
                             }, 1500);
                         }
                     });
@@ -96,7 +96,7 @@
 
             <!-- NAV BAR -->
             <nav class="navbar">
-                <a class="nav-link" href="/PAGES/index.html">Inicio</a>
+                <a class="nav-link" href="/index.html">Inicio</a>
                 <a class="nav-link" href="/PAGES/catalogo.html">Catálogo</a>
                 <a class="nav-link" href="#about">Nosotros</a>
                 <a class="nav-link" href="/PAGES/contact.html">Contacto</a>
@@ -118,14 +118,16 @@
         </div>
     </header>
 
-    <!-- CONTENIDO PRINCIPAL DE PAGO -->
+        <!-- CONTENIDO PRINCIPAL DE PAGO -->
     <div class="checkout-container">
         <div class="payment-content">
             <!-- MIGAS DE PAN -->
             <div class="breadcrumb">
-                <a href="/PAGES/index.html">Inicio</a>
+                <a href="/index.html">Inicio</a>
                 <span class="separator">></span>
                 <a href="/PAGES/cart.html">Carrito</a>
+                <span class="separator">></span>
+                <a href="/PAGES/address.html">Confirma tu dirección</a>
                 <span class="separator">></span>
                 <span class="current">Método de Pago</span>
             </div>
@@ -224,7 +226,7 @@
                 <div class="footer-section">
                     <h4>Enlaces rápidos</h4>
                     <ul>
-                        <li><a href="/PAGES/index.html">Inicio</a></li>
+                        <li><a href="/index.html">Inicio</a></li>
                         <li><a href="/PAGES/catalogo.html">Catálogo</a></li>
                         <li><a href="#about">Nosotros</a></li>
                         <li><a href="/PAGES/contact.html">Contacto</a></li>
@@ -254,6 +256,7 @@
         </div>
     </footer>
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         let selectedPayment = null;
 
@@ -263,26 +266,39 @@
                 option.classList.remove('selected');
             });
 
-            // Agregar selección actual
-            const selectedOption = event.currentTarget;
-            selectedOption.classList.add('selected');
-            selectedPayment = method;
+        const selectedOption = event.currentTarget;
+        selectedOption.classList.add('selected');
+        selectedPayment = method;
 
-            // Redirigir según el método seleccionado
-            setTimeout(() => {
-                switch(method) {
-                    case 'card':
-                        window.location.href = '/PAGES/paymentCard.html';
-                        break;
-                    case 'oxxo':
-                        window.location.href = '/PAGES/paymentOXXO.html';
-                        break;
-                    case 'transfer':
-                        window.location.href = '/PAGES/transfer.html ';
-                        break;
-                }
-            }, 500);
-        }
+        setTimeout(() => {
+            switch(method) {
+                case 'card':
+                    window.location.href = '/PAGES/paymentCard.html';
+                    break;
+                case 'oxxo':
+                    Swal.fire({
+                        title: '¿Confirmar pago en OXXO?',
+                        html: `<p>Se generará un código de barras válido por <strong>72 horas</strong>.</p>`,
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí, generar código',
+                        cancelButtonText: 'Cancelar',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            sessionStorage.setItem('startOxxoTimer', 'true');
+                            window.location.href = '/PAGES/paymentOXXO.html';
+                        } else {
+                            selectedOption.classList.remove('selected');
+                            selectedPayment = null;
+                        }
+                    });
+                    break;
+                case 'transfer':
+                    window.location.href = '/PAGES/transfer.html';
+                    break;
+            }
+        }, 300);
+    }
 
         // Efecto hover 
         document.querySelectorAll('.payment-option').forEach(option => {
@@ -297,6 +313,7 @@
         });
     </script>
 
+    <script src="/JS/cartUtils.js"></script>
     <script src="/JS/acces_script.js"></script>
 </body>
 </html>

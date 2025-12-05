@@ -1,24 +1,23 @@
+// ===== DEPENDENCIAS Y CONFIGURACIÓN =====
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
+// ===== FUNCIONAMIENTO/FUNCIONES =====
 // Crear directorio de uploads si no existe - RUTA ABSOLUTA
 const uploadsDir = path.join(__dirname, "../uploads");
 if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
-    console.log("✓ Directorio uploads creado en:", uploadsDir);
 }
 
 // Configuración de almacenamiento de multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        console.log("Guardando archivo en:", uploadsDir);
         cb(null, uploadsDir); // Usar ruta absoluta
     },
     filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1E9);
         const filename = uniqueSuffix + path.extname(file.originalname);
-        console.log("Nombre de archivo generado:", filename);
         cb(null, filename);
     }
 });
@@ -46,11 +45,8 @@ const upload = multer({
 }).any(); // Importante: .any() permite múltiples archivos con cualquier nombre de campo
 
 // ===== CONTROLADORES =====
-
 // Obtener todas las imágenes
 const getImages = (req, res) => {
-    console.log("📁 Solicitando lista de imágenes");
-    
     fs.readdir(uploadsDir, (err, files) => {
         if (err) {
             console.error("❌ Error al leer directorio de uploads:", err);
@@ -66,7 +62,6 @@ const getImages = (req, res) => {
             return ['.jpg', '.jpeg', '.png', '.webp'].includes(ext);
         });
 
-        console.log(`✓ Se encontraron ${imageFiles.length} imágenes`);
         res.json({ 
             success: true,
             images: imageFiles 
@@ -76,9 +71,6 @@ const getImages = (req, res) => {
 
 // Subir imágenes
 const uploadImages = (req, res) => {
-    console.log("📤 Solicitud de subida recibida");
-    console.log("Headers:", req.headers);
-
     upload(req, res, (err) => {
         if (err) {
             console.error("❌ Error de multer:", err);
@@ -88,18 +80,12 @@ const uploadImages = (req, res) => {
             });
         }
 
-        console.log("Archivos recibidos:", req.files);
-        console.log("Body:", req.body);
-
         if (!req.files || req.files.length === 0) {
-            console.log("❌ No se recibieron archivos");
             return res.status(400).json({ 
                 success: false,
                 error: "Por favor selecciona una imagen para subir" 
             });
         }
-
-        console.log(`✓ ${req.files.length} archivo(s) subido(s) exitosamente`);
         
         // Devolver información de los archivos subidos
         const uploadedFiles = req.files.map(file => ({
@@ -119,7 +105,6 @@ const uploadImages = (req, res) => {
 
 // Eliminar imágenes
 const deleteImages = (req, res) => {
-    console.log("🗑️ Solicitud de eliminación recibida");
     const { images } = req.body;
 
     if (!images || images.length === 0) {
@@ -139,10 +124,8 @@ const deleteImages = (req, res) => {
             if (fs.existsSync(filePath)) {
                 fs.unlinkSync(filePath);
                 deletedCount++;
-                console.log(`✓ Eliminado: ${image}`);
             } else {
                 errors.push(`Archivo no encontrado: ${image}`);
-                console.log(`⚠️ No encontrado: ${image}`);
             }
         } catch (error) {
             console.error(`❌ Error al eliminar ${image}:`, error);
@@ -158,6 +141,7 @@ const deleteImages = (req, res) => {
     });
 };
 
+// ===== EXPORTACIÓN DE MÓDULOS =====
 module.exports = {
     getImages,
     uploadImages,

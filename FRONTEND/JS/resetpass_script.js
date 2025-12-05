@@ -156,6 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
         icon: "warning",
         title: "Campo requerido",
         text: "Por favor ingresa tu email",
+        confirmButtonColor: "#8B5E3C",
       });
       return;
     }
@@ -165,6 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
         icon: "error",
         title: "Email inválido",
         text: "Por favor ingresa un email válido",
+        confirmButtonColor: "#8B5E3C",
       });
       return;
     }
@@ -179,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     try {
       const res = await fetch(
-        "http://localhost:3000/api/auth/forgot-password",
+        "https://web-5lecz6bm76nn.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/auth/forgot-password",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -197,7 +199,12 @@ document.addEventListener("DOMContentLoaded", function () {
           showConfirmButton: false,
         }).then(() => goToStep(2));
       } else {
-        Swal.fire({ icon: "error", title: "Error", text: data.message });
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: data.message,
+          confirmButtonColor: "#8B5E3C",
+        });
         submitBtn.disabled = false;
       }
     } catch (err) {
@@ -206,6 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
         icon: "error",
         title: "Error",
         text: "No se pudo conectar al servidor",
+        confirmButtonColor: "#8B5E3C",
       });
       submitBtn.disabled = false;
     }
@@ -221,6 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
         icon: "warning",
         title: "Campo requerido",
         text: "Por favor ingresa el código de verificación",
+        confirmButtonColor: "#8B5E3C",
       });
       codeInput.value = "";
       return;
@@ -230,13 +239,14 @@ document.addEventListener("DOMContentLoaded", function () {
         icon: "error",
         title: "Código inválido",
         text: "El código debe tener 6 dígitos",
+        confirmButtonColor: "#8B5E3C",
       });
       codeInput.value = "";
       return;
     }
     try {
       const res = await fetch(
-        "http://localhost:3000/api/auth/verify-reset-code",
+        "https://web-5lecz6bm76nn.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/auth/verify-reset-code",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -253,7 +263,12 @@ document.addEventListener("DOMContentLoaded", function () {
           showConfirmButton: false,
         }).then(() => goToStep(3));
       } else {
-        Swal.fire({ icon: "error", title: "Error", text: data.message });
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: data.message,
+          confirmButtonColor: "#8B5E3C",
+        });
         codeInput.value = "";
       }
     } catch (err) {
@@ -261,6 +276,7 @@ document.addEventListener("DOMContentLoaded", function () {
         icon: "error",
         title: "Error",
         text: "No se pudo conectar al servidor",
+        confirmButtonColor: "#8B5E3C",
       });
       codeInput.value = "";
     }
@@ -279,6 +295,7 @@ document.addEventListener("DOMContentLoaded", function () {
           icon: "warning",
           title: "Campo requerido",
           text: "Por favor ingresa tu email",
+          confirmButtonColor: "#8B5E3C",
         });
         return;
       }
@@ -288,6 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
           icon: "error",
           title: "Email inválido",
           text: "Por favor ingresa un email válido",
+          confirmButtonColor: "#8B5E3C",
         });
         return;
       }
@@ -301,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
           Swal.showLoading();
         },
       });
-      fetch("http://localhost:3000/api/auth/forgot-password", {
+      fetch("https://web-5lecz6bm76nn.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/auth/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -323,6 +341,7 @@ document.addEventListener("DOMContentLoaded", function () {
               icon: "error",
               title: "Error",
               text: data.message || "No se pudo reenviar el código",
+              confirmButtonColor: "#8B5E3C",
             });
             btn.disabled = false;
           }
@@ -333,6 +352,7 @@ document.addEventListener("DOMContentLoaded", function () {
             icon: "error",
             title: "Error",
             text: "No se pudo conectar al servidor",
+            confirmButtonColor: "#8B5E3C",
           });
           btn.disabled = false;
         });
@@ -351,6 +371,7 @@ document.addEventListener("DOMContentLoaded", function () {
         icon: "warning",
         title: "Campos requeridos",
         text: "Por favor completa ambos campos de contraseña",
+        confirmButtonColor: "#8B5E3C",
       });
       return;
     }
@@ -359,6 +380,7 @@ document.addEventListener("DOMContentLoaded", function () {
         icon: "error",
         title: "Contraseñas no coinciden",
         text: "Las contraseñas ingresadas no coinciden",
+        confirmButtonColor: "#8B5E3C",
       });
       return;
     }
@@ -367,11 +389,12 @@ document.addEventListener("DOMContentLoaded", function () {
         icon: "error",
         title: "Contraseña muy corta",
         text: "La contraseña debe tener al menos 8 caracteres",
+        confirmButtonColor: "#8B5E3C",
       });
       return;
     }
     try {
-      const res = await fetch("http://localhost:3000/api/auth/reset-password", {
+      const res = await fetch("https://web-5lecz6bm76nn.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/auth/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, code, newPassword: password }),
@@ -383,15 +406,22 @@ document.addEventListener("DOMContentLoaded", function () {
           title: "¡Contraseña cambiada!",
           text: "Tu contraseña ha sido actualizada correctamente",
           confirmButtonText: "Iniciar sesión",
+          confirmButtonColor: "#8B5E3C",
         }).then(() => (window.location.href = "/PAGES/login.html"));
       } else {
-        Swal.fire({ icon: "error", title: "Error", text: data.message });
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: data.message,
+          confirmButtonColor: "#8B5E3C",
+        });
       }
     } catch (err) {
       Swal.fire({
         icon: "error",
         title: "Error",
         text: "No se pudo conectar al servidor",
+        confirmButtonColor: "#8B5E3C",
       });
     }
   });

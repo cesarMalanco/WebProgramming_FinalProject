@@ -133,6 +133,39 @@
     color: var(--text-dark);
 }
 
+/* SWEETALERT – MODO OSCURO */
+.dark-mode .swal2-popup {
+    background: var(--card-bg) !important;
+    color: var(--text-dark) !important;
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    box-shadow:
+        0 0 12px rgba(255,0,255,0.4),
+        0 0 25px rgba(29,200,255,0.3);
+}
+
+.dark-mode .swal2-title {
+    color: var(--vibrant-2) !important;
+    text-shadow: 0 0 10px var(--vibrant-1);
+}
+
+.dark-mode .swal2-html-container {
+    color: var(--text-muted) !important;
+}
+
+.dark-mode .swal2-confirm {
+    background: var(--primary) !important;
+    color: var(--black) !important;
+    box-shadow:
+        0 0 8px rgba(255,0,255,0.5),
+        0 0 14px rgba(0,200,255,0.4);
+}
+
+.dark-mode .swal2-cancel {
+    background: var(--accent) !important;
+    color: var(--black) !important;
+}
+
+
 /* ======== RESET Y BASE ======== */
 * {
     margin: 0;
@@ -236,6 +269,10 @@ body {
     filter: drop-shadow(0 2px 4px rgba(102, 71, 10, 0.1));
     transition: var(--transition);
 }
+.dark-mode .logo img {
+    content: url("/IMAGES/logo_darkmode.png");
+    filter: drop-shadow(0 0 6px rgba(255, 0, 255, 0.6));
+}
 
 .logo:hover img {
     transform: scale(1.05);
@@ -303,6 +340,7 @@ body {
     padding: 8px 12px;
     border-radius: 50%;
     transition: var(--transition);
+    cursor: pointer;
 }
 
 .nav-link.search:hover {
@@ -447,6 +485,7 @@ body {
     transition: var(--transition);
     padding: 8px;
     border-radius: 50%;
+    overflow: visible;
 }
 
 .header-icon:hover {
@@ -458,6 +497,17 @@ body {
     color: var(--vibrant-1);
 }
 
+/* Ocultar el icono original */
+.header-icon.wishlist i {
+    
+    font-weight: 400; 
+}
+
+/* Cambiar a sólido cuando está active */
+.header-icon.wishlist.active i {
+    font-weight: 900; /* solid */
+}
+
 .header-icon.cart:hover {
     color: var(--vibrant-2);
 }
@@ -466,17 +516,21 @@ body {
     position: absolute;
     top: 0;
     right: 0;
+    transform: translate(40%, -10%);
     background: var(--accent);
     color: white;
     font-size: 0.7rem;
-    width: 18px;
+    min-width: 18px;
     height: 18px;
+    padding: 3px 2px 1px 2px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 500;
-    padding: 1px 5px;
+    font-weight: 700;
+    line-height: 1;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 /* ======== LOGIN BUTTON ======== */
@@ -921,11 +975,24 @@ body {
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
+    opacity: 0.6;
 }
 
 .add-to-cart-btn:disabled:hover {
     transform: none;
     box-shadow: none;
+}
+
+.add-to-cart-btn.btn-disabled {
+    background: #999 !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+    pointer-events: auto;
+}
+
+.add-to-cart-btn.btn-disabled:hover {
+    transform: none !important;
+    box-shadow: none !important;
 }
 
 .remove-wishlist-btn {
@@ -1070,6 +1137,62 @@ body {
     box-shadow: none;
 }
 
+/* BOTÓN SIGUIENTE */
+.btn-next {
+    display: block;         
+    text-align: center;      
+
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 20px;
+    box-shadow: var(--shadow);
+    text-decoration: none;   
+}
+
+.btn-next:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-next:disabled {
+    background: var(--text-muted);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+
+/* BOTÓN GENERAL */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    border: none;
+    cursor: pointer;
+}
+
+.general-btn {
+    position: relative;  
+    overflow: hidden;    
+    z-index: 0;          
+}
+
 
 .general-btn:hover {
     transform: translateY(-3px);
@@ -1089,6 +1212,7 @@ body {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: 0.6s;
+     z-index: -1;
 }
 
 .general-btn:hover::before {

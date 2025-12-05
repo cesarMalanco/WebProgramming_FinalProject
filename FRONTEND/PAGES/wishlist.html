@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Rythmo | Lista de Deseos</title>
-    <link rel="icon" type="image/png" href="/IMAGES/TiredCat_No-bg.png"/>
+    <link rel="icon" type="image/png" href="/IMAGES/logo_darkmode.png"/>
     <script src="https://kit.fontawesome.com/d90850e71e.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -21,14 +21,14 @@
         <div class="top-right">
             <div class="header-icons">
                 <!-- WISHLIST -->
-                <a href="/PAGES/wishlist.html" class="header-icon wishlist" title="Lista de deseos">
+                <a href="/PAGES/wishlist.html" class="header-icon wishlist active" id="wishlist-icon" title="Lista de deseos" style="display:none">
                     <i class="fa-regular fa-heart"></i>
                 </a>
 
                 <!-- CARRITO CON BADGE -->
-                <a href="/PAGES/cart.html" class="header-icon cart" title="Carrito de compras">
+                <a href="/PAGES/cart.html" class="header-icon cart" id="cart-icon" title="Carrito de compras" style="display:none">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="cart-count" id="cart-badge">0</span>
+                    <span class="cart-count" id="cart-badge" style="display: none;">0</span>
                 </a>
                 <!-- USUARIO LOGUEADO O LOGIN -->
                 <span id="user-name" class="welcome-user" style="display:none"></span>
@@ -52,10 +52,14 @@
                     document.getElementById("user-name").style.display = "inline-block";
                     document.getElementById("logout-btn").style.display = "inline-block";
                     document.getElementById("login-btn-link").style.display = "none";
+                    document.getElementById("wishlist-icon").style.display = "inline-block";
+                    document.getElementById("cart-icon").style.display = "inline-block";
                 } else {
                     document.getElementById("user-name").style.display = "none";
                     document.getElementById("logout-btn").style.display = "none";
                     document.getElementById("login-btn-link").style.display = "inline-block";
+                    document.getElementById("wishlist-icon").style.display = "none";
+                    document.getElementById("cart-icon").style.display = "none";
                 }
                 // Logout
                 document.getElementById("logout-btn").addEventListener("click", function() {
@@ -81,14 +85,14 @@
                                 showConfirmButton: false
                             });
                             setTimeout(function() {
-                                window.location.href = "/PAGES/index.html";
+                                window.location.href = "/index.html";
                             }, 1500);
                         }
                     });
                 });
             </script>
             <div class="logo">
-                <img src="/IMAGES/TiredCat_No-bg.png" alt="Logo Rythmo" />
+                <img src="/IMAGES/logo.png" alt="Logo Rythmo" />
                 <div class="logo-text">
                     <h1>Rythmo</h1>
                     <span class="slogan">WE BELIEVE IN MUSIC.</span>
@@ -97,9 +101,9 @@
 
             <!-- NAV BAR -->
             <nav class="navbar">
-                <a class="nav-link active" href="/PAGES/index.html">Inicio</a>
+                <a class="nav-link" href="/index.html">Inicio</a>
                 <a class="nav-link" href="/PAGES/catalogo.html">Catálogo</a>
-                <a class="nav-link" href="#about">Nosotros</a>
+                <a class="nav-link" href="/PAGES/nosotros.html">Nosotros</a>
                 <a class="nav-link" href="/PAGES/contact.html">Contacto</a>
                 <a class="nav-link" href="/PAGES/faq.html">FAQ</a>
                 <!-- ICONO ACCESIBILIDAD -->
@@ -180,7 +184,7 @@
                 <div class="footer-section">
                     <h4>Enlaces rápidos</h4>
                     <ul>
-                        <li><a href="/PAGES/index.html">Inicio</a></li>
+                        <li><a href="/index.html">Inicio</a></li>
                         <li><a href="/PAGES/catalogo.html">Catálogo</a></li>
                         <li><a href="#about">Nosotros</a></li>
                         <li><a href="/PAGES/contact.html">Contacto</a></li>
@@ -210,7 +214,10 @@
         </div>
     </footer>
     
+    <script src="/JS/currencyUtils.js"></script>
     <script src="/JS/wishlist_script.js"></script>  
+    <script src="/JS/cartUtils.js"></script>
+    <script src="/JS/wishlistUtils.js"></script>
     <script src="/JS/acces_script.js"></script> 
 </body>
 </html>

@@ -101,6 +101,39 @@
     border: 1px solid rgba(255, 0, 255, 0.2);
 }
 
+/* SWEETALERT – MODO OSCURO */
+.dark-mode .swal2-popup {
+    background: var(--card-bg) !important;
+    color: var(--text-dark) !important;
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    box-shadow:
+        0 0 12px rgba(255,0,255,0.4),
+        0 0 25px rgba(29,200,255,0.3);
+}
+
+.dark-mode .swal2-title {
+    color: var(--vibrant-2) !important;
+    text-shadow: 0 0 10px var(--vibrant-1);
+}
+
+.dark-mode .swal2-html-container {
+    color: var(--text-muted) !important;
+}
+
+.dark-mode .swal2-confirm {
+    background: var(--primary) !important;
+    color: var(--black) !important;
+    box-shadow:
+        0 0 8px rgba(255,0,255,0.5),
+        0 0 14px rgba(0,200,255,0.4);
+}
+
+.dark-mode .swal2-cancel {
+    background: var(--accent) !important;
+    color: var(--black) !important;
+}
+
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -179,6 +212,10 @@ body {
   filter: 
     drop-shadow(0 2px 4px rgba(139, 94, 60, 0.588));
   transition: var(--transition);
+}
+.dark-mode .logo-area img {
+    content: url("/IMAGES/logo_darkmode.png");
+    filter: drop-shadow(0 0 6px rgba(255, 0, 255, 0.6));
 }
 
 .logo-link:hover img {
@@ -263,6 +300,7 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 #accessibility-icon:hover {
@@ -725,3 +763,70 @@ body {
   box-shadow: var(--shadow), 0 0 30px rgba(139, 94, 60, 0.2);
 }
 
+/* =================== VALIDACIÓN DE CAMPOS =================== */
+.input-group input.valid {
+  border-color: #4CAF50 !important;
+  background-color: rgba(76, 175, 80, 0.05);
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+}
+
+.input-group input.invalid {
+  border-color: #f44336 !important;
+  background-color: rgba(244, 67, 54, 0.05);
+  box-shadow: 0 0 8px rgba(244, 67, 54, 0.3);
+}
+
+.expiry-group input.valid {
+  border-color: #4CAF50 !important;
+  background-color: rgba(76, 175, 80, 0.05);
+}
+
+.expiry-group input.invalid {
+  border-color: #f44336 !important;
+  background-color: rgba(244, 67, 54, 0.05);
+}
+
+/* Iconos de validación */
+.input-group.has-validation {
+  position: relative;
+}
+
+.input-group .validation-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.input-group.has-label .validation-icon {
+  top: calc(50% + 10px);
+}
+
+.input-group input.valid ~ .validation-icon.valid-icon,
+.input-group input.invalid ~ .validation-icon.invalid-icon {
+  opacity: 1;
+}
+
+.validation-icon.valid-icon {
+  color: #4CAF50;
+}
+
+.validation-icon.invalid-icon {
+  color: #f44336;
+}
+
+/* Mensaje de error */
+.input-group .error-message {
+  font-size: 0.75rem;
+  color: #f44336;
+  margin-top: 4px;
+  display: none;
+}
+
+.input-group input.invalid ~ .error-message {
+  display: block;
+}
