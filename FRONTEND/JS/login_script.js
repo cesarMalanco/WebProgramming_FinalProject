@@ -43,16 +43,6 @@ if (loginBtn) {
     }
 
     try {
-      const res = await fetch("https://web-5lecz6bm76nn.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-          captchaId,
-          captchaAnswer: answer,
-        }),
-      });
 
   // Petición login+captcha
   const res = await fetch("https://web-5lecz6bm76nn.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/auth/login", {
