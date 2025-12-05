@@ -1,5 +1,6 @@
 // ===== DEPENDENCIAS Y CONFIGURACIÓN =====
 const transporter = require("../config/email");
+const path = require("path");
 
 // ===== FUNCIONES =====
 // Enviar mensaje de contacto
@@ -24,8 +25,8 @@ async function sendContactMessage(req, res) {
       });
     }
 
-    // URL del logo desde Vercel
-    const logoUrl = "https://rythmo-tienda-de-musica.vercel.app/IMAGES/logo.png";;
+    // Ruta del logo
+    const logoPath = path.join(__dirname, "../logo/logo.png");
 
     // Email para el equipo de Rythmo
     const mailToTeam = {
@@ -79,6 +80,13 @@ async function sendContactMessage(req, res) {
         </body>
         </html>
       `,
+      attachments: [
+        {
+          filename: "logo.png",
+          path: logoPath,
+          cid: "rythmologo",
+        },
+      ],
     };
 
     // Email de confirmación para el cliente
@@ -97,7 +105,7 @@ async function sendContactMessage(req, res) {
             
             <!-- Header -->
             <div style="background: linear-gradient(135deg, #8B5E3C 0%, #6B4423 100%); padding: 40px 30px; text-align: center;">
-              <img src="${logoUrl}" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px;">
+              <img src="cid:rythmologo" alt="Rythmo Logo" style="width: 80px; height: 80px; margin-bottom: 15px;">
               <h1 style="color: #ffffff; margin: 0; font-size: 28px;">Rythmo</h1>
               <p style="color: #f5e6d3; margin: 5px 0 0 0; font-size: 12px; letter-spacing: 2px;">WE BELIEVE IN MUSIC</p>
             </div>
@@ -135,6 +143,13 @@ async function sendContactMessage(req, res) {
         </body>
         </html>
       `,
+      attachments: [
+        {
+          filename: "logo.png",
+          path: logoPath,
+          cid: "rythmologo",
+        },
+      ],
     };
 
     // Enviar ambos emails
@@ -154,11 +169,6 @@ async function sendContactMessage(req, res) {
     });
   }
 }
-
-// ===== EXPORTACIÓN DE MÓDULOS =====
-module.exports = {
-  sendContactMessage,
-};
 
 // ===== EXPORTACIÓN DE MÓDULOS =====
 module.exports = {
