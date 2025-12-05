@@ -9,7 +9,8 @@ async function createCaptcha(email){
     const captcha = svgCaptcha.create({
         size: 5,
         noise: 2,
-        color: false,
+        color: true, /* pone los caracteres multicolor */
+        background: "#ffffff",
     });
 
     const captchaId = Date.now().toString();
